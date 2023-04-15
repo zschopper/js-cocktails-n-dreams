@@ -1,0 +1,95 @@
+.data-operations {
+    visibility: hidden;
+    /* display: none; */
+    float: right;
+    /* position: absolute; */
+    /* right: 0px; */
+}
+
+.data-operations > * {
+    padding-left: 3px;
+}
+
+tr:hover .data-operations {
+    visibility: visible;
+    /* display: inline; */
+}
+
+.data-operations .edit:hover {
+    color: forestgreen;
+    transition-duration: 200ms;
+    font-weight: bold;
+    cursor: pointer;
+}
+.data-operations .delete:hover {
+    color: red;
+    transition-duration: 200ms;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+table thead > tr > th[aria-sort],
+table thead > tr > th[aria-sort="ascending"],
+table thead > tr > th[aria-sort="descending"] {
+  padding-right: 30px;
+}
+
+table thead > tr > th:active {
+  outline: 0;
+}
+
+table thead [aria-sort],
+table thead [aria-sort="ascending"],
+table thead [aria-sort="descending"] {
+  cursor: pointer;
+  position: relative;
+}
+
+table thead [aria-sort]:after,
+table thead [aria-sort]:before,
+table thead [aria-sort="ascending"]:after,
+table thead [aria-sort="ascending"]:before,
+table thead [aria-sort="descending"]:after,
+table thead [aria-sort="descending"]:before {
+  position: absolute;
+  bottom: 0.5em;
+  display: block;
+  opacity: 0.3;
+}
+
+table thead [aria-sort]:before,
+table thead [aria-sort="ascending"]:before,
+table thead [aria-sort="descending"]:before {
+  right: 1em;
+  content: "\f0de";
+  font-family: "Font Awesome\ 5 Free";
+  font-weight: 900;
+  font-size: 1rem;
+}
+
+table thead [aria-sort]:after,
+table thead [aria-sort="ascending"]:after,
+table thead [aria-sort="descending"]:after {
+  content: "\f0dd";
+  font-family: "Font Awesome\ 5 Free";
+  font-weight: 900;
+  right: 16px;
+  font-size: 1rem;
+}
+
+table thead [aria-sort="ascending"]:before,
+table thead [aria-sort="descending"]:after {
+  opacity: 1;
+}
+
+table tbody tr {
+  border-top: 1px solid #00000010;
+}
+
+table td {
+  padding: 0 20px;
+}
+
+tr:nth-child(even) {
+  background-color: #00000005;
+}
