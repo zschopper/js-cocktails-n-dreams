@@ -4,184 +4,54 @@ import { Drink } from "./drink.js";
 
 export class Drinks {
 
-    static itemList = [];
-    static filteredItemList = [];
-    static fieldDefs = [
-        {
-            name: "id",
-            title: "#",
-            displayAs: "number",
-            displayOn: ["card", "table"],
-            sortable: true,
-            filter: "number",
-        },
-        {
-            name: "name",
-            title: "Name",
-            displayAs: "text",
-            displayOn: ["card", "table"],
-            sortable: true,
-            filter: "text",
-        },
-        {
-            name: "category",
-            title: "Category",
-            displayAs: "text",
-            displayOn: ["card", "table"],
-            sortable: true,
-            filter: "list",
-        },
-        {
-            name: "alcoholic",
-            title: "Alcoholic",
-            displayAs: "text",
-            displayOn: ["card", "table"],
-            sortable: true,
-            filter: "list",
-        },
-        {
-            name: "image",
-            title: "Image",
-            displayAs: "image",
-            displayOn: ["card"],
-            sortable: false,
-            filter: "",
-        },
-        {
-            name: "glass",
-            title: "Glass",
-            displayAs: "text",
-            displayOn: ["card", "table"],
-            sortable: true,
-            filter: "list",
-        },
-        {
-            name: "iba",
-            title: "IBA",
-            displayAs: "text",
-            displayOn: ["card", "table"],
-            sortable: true,
-            filter: "list",
-        },
-        {
-            name: "instructions",
-            title: "Instructions",
-            displayAs: "text",
-            displayOn: ["card"],
-            sortable: false,
-            filter: "text",
-        },
-        {
-            name: "noOfIngredients",
-            title: "No. of Ingr.",
-            displayAs: "number",
-            displayOn: ["table"],
-            sortable: true,
-            filter: "",
-        },
-    ];
 
-    static fieldValues = {
-        alcoholic: [],
-        category: [],
-        glass: [],
-        iba: [],
-        ingredient: [],
-    };
-
-    static filters = [];
-
-    // create object from field def list (for quicker access of fields by their name)
-    static fieldDefByName = {};
-
-    static init() {
-        Drinks.fieldDefs = [
-            {
-                name: "id",
-                title: "#",
-                displayAs: "number",
-                displayOn: ["card", "table"],
-                sortable: true,
-                filter: "number",
-            },
-            {
-                name: "name",
-                title: "Name",
-                displayAs: "text",
-                displayOn: ["card", "table"],
-                sortable: true,
-                filter: "text",
-            },
-            {
-                name: "category",
-                title: "Category",
-                displayAs: "text",
-                displayOn: ["card", "table"],
-                sortable: true,
-                filter: "list",
-            },
-            {
-                name: "alcoholic",
-                title: "Alcoholic",
-                displayAs: "text",
-                displayOn: ["card", "table"],
-                sortable: true,
-                filter: "list",
-            },
-            {
-                name: "image",
-                title: "Image",
-                displayAs: "image",
-                displayOn: ["card"],
-                sortable: false,
-                filter: "",
-            },
-            {
-                name: "glass",
-                title: "Glass",
-                displayAs: "text",
-                displayOn: ["card", "table"],
-                sortable: true,
-                filter: "list",
-            },
-            {
-                name: "iba",
-                title: "IBA",
-                displayAs: "text",
-                displayOn: ["card", "table"],
-                sortable: true,
-                filter: "list",
-            },
-            {
-                name: "instructions",
-                title: "Instructions",
-                displayAs: "text",
-                displayOn: ["card"],
-                sortable: false,
-                filter: "text",
-            },
-            {
-                name: "noOfIngredients",
-                title: "No. of Ingr.",
-                displayAs: "number",
-                displayOn: ["table"],
-                sortable: true,
-                filter: "",
-            },
-        ];
-
-        Drinks.fieldDefs.map((v, k) => { Drinks.fieldDefByName[v.name] = v });
+    constructor(dataFileName) {
+        this.dataFileName = dataFileName;
+        this.itemList = [];
+        this.filteredItemList = [];
+        this.fieldDefs = [];
+        this.fieldValues = {};
+        this.filters = [];
+        this.fieldDefByName = {};
+        this.initFieldDefs();
     }
 
-    static loadItems() {
-        Drinks.itemList = [];
+
+    // create object from field def list (for quicker access of fields by their name)
+
+    initFieldDefs() {
+        this.fieldDefs = [
+            { name: "id", title: "#", displayAs: "number", displayOn: ["card", "table"], sortable: true, filter: "number", },
+            { name: "name", title: "Name", displayAs: "text", displayOn: ["card", "table"], sortable: true, filter: "text", },
+            { name: "category", title: "Category", displayAs: "text", displayOn: ["card", "table"], sortable: true, filter: "list", },
+            { name: "alcoholic", title: "Alcoholic", displayAs: "text", displayOn: ["card", "table"], sortable: true, filter: "list", },
+            { name: "image", title: "Image", displayAs: "image", displayOn: ["card"], sortable: false, filter: "", },
+            { name: "glass", title: "Glass", displayAs: "text", displayOn: ["card", "table"], sortable: true, filter: "list", },
+            { name: "iba", title: "IBA", displayAs: "text", displayOn: ["card", "table"], sortable: true, filter: "list", },
+            { name: "instructions", title: "Instructions", displayAs: "text", displayOn: ["card"], sortable: false, filter: "text", },
+            { name: "noOfIngredients", title: "No. of Ingr.", displayAs: "number", displayOn: ["table"], sortable: true, filter: "", },
+        ];
+
+        this.fieldDefs.map((v, k) => { this.fieldDefByName[v.name] = v });
+    }
+
+    loadItems() {
+        this.itemList = [];
 
         $.ajax({
-            url: 'assets/data/all_drinks.json',
+            url: this.dataFileName,
             async: false,
             dataType: 'json',
             success: function (data) {
                 console.log("loadItems", "load OK");
+                console.log("loadItems this", this)
+                this.fieldValues = {
+                    alcoholic: [],
+                    category: [],
+                    glass: [],
+                    iba: [],
+                    ingredient: [],
+                };
 
                 for (let item of data) {
                     let values = {
@@ -197,47 +67,47 @@ export class Drinks {
                         ingredients: [],
                     }
 
-                    Drinks.fieldValues["alcoholic"].push(values.alcoholic);
-                    Drinks.fieldValues["category"].push(values.category);
-                    Drinks.fieldValues["glass"].push(values.glass);
-                    Drinks.fieldValues["iba"].push(values.iba);
+                    this.fieldValues["alcoholic"].push(values.alcoholic);
+                    this.fieldValues["category"].push(values.category);
+                    this.fieldValues["glass"].push(values.glass);
+                    this.fieldValues["iba"].push(values.iba);
                     let i = 1;
                     while (item.hasOwnProperty("strIngredient" + i) && item["strIngredient" + i]) {
                         values.ingredients.push({
                             "measure": item["strMeasure" + i],
                             "ingredient": item["strIngredient" + i],
                         });
-                        Drinks.fieldValues["ingredient"].push(item["strIngredient" + i]);
+                        this.fieldValues["ingredient"].push(item["strIngredient" + i]);
                         i += 1;
                     }
-                    Drinks.itemList.push(new Drink(values));
+                    this.itemList.push(new Drink(values));
 
                     // limit number of items - for testing
-                    // if (Drinks.itemList.length == 200)
+                    // if (this.itemList.length == 200)
                     //     break;
                 }
 
                 // make filter lists unique
-                for (const key in Drinks.fieldValues) {
-                    Drinks.fieldValues[key] = [... new Set(Drinks.fieldValues[key])].sort().filter(item => item);
-                    Drinks.fieldValues[key].unshift("")
+                for (const key in this.fieldValues) {
+                    this.fieldValues[key] = [... new Set(this.fieldValues[key])].sort().filter(item => item);
+                    this.fieldValues[key].unshift("")
                 }
 
-            },
+            }.bind(this),
             fail: function () {
                 console.log("Loading items: An error has occurred.");
             }
         });
     }
 
-    static sortItems(field, ascending = true) {
+    sortItems(field, ascending = true) {
         console.log("sortItems", [field, ascending]);
 
-        let fieldDef = Drinks.fieldDefByName[field];
+        let fieldDef = this.fieldDefByName[field];
 
         console.log("sortItems:field", fieldDef);
 
-        Drinks.filteredItemList.sort((a, b) => {
+        this.filteredItemList.sort((a, b) => {
             // console.log("sort", a, b, fieldDef);
 
             let dir = 1;
@@ -258,40 +128,40 @@ export class Drinks {
         });
     }
 
-    static addFilter(field, value, suppress=false) {
-        if (Drinks.findFilter(field, value) == -1) {
-            Drinks.filters.push({ field: field, value: value });
+    addFilter(field, value, suppress=false) {
+        if (this.findFilter(field, value) == -1) {
+            this.filters.push({ field: field, value: value });
 
             if (!suppress) {
-                Drinks.applyFilters()
+                this.applyFilters()
             }
         }
     }
 
-    static findFilter(field, value) {
+    findFilter(field, value) {
         // check existance of each filter in the filter list
         let idx = -1;
-        for (let i = 0; idx == -1 && i < Drinks.filters.length; i++) {
-            if (Drinks.filters[i].field == field && Drinks.filters[i].value == value) {
+        for (let i = 0; idx == -1 && i < this.filters.length; i++) {
+            if (this.filters[i].field == field && this.filters[i].value == value) {
                 idx = i;
             }
         }
         return idx;
     }
 
-    static addFilters(items) {
+    addFilters(items) {
         for (let item of items) {
-            Drinks.addFilter(item.field, item.value, true);
+            this.addFilter(item.field, item.value, true);
         }
-        return Drinks.applyFilters();
+        return this.applyFilters();
     }
 
-    static applyFilters() {
-        console.log("applyFilters", Drinks.filters );
+    applyFilters() {
+        console.log("applyFilters", this.filters );
 
         let filterFields = {};
 
-        for (let filter of Drinks.filters) {
+        for (let filter of this.filters) {
             console.log("applyFilters: key/value", filter.field, filter.value);
 
             if (filterFields[filter.field] == undefined) {
@@ -301,7 +171,7 @@ export class Drinks {
             }
         }
 
-        Drinks.filteredItemList = Drinks.itemList.filter((item) => {
+        this.filteredItemList = this.itemList.filter((item) => {
 
             for (let key in filterFields) {
                 if (!filterFields[key].includes(item[key])) {
@@ -310,17 +180,27 @@ export class Drinks {
             }
             return true;
         });
-        return Drinks.filteredItemList;
+        return this.filteredItemList;
 
     }
+    findIndexOfId(id) {
+        let i = 0
+        while(i < this.itemList.length && this.itemList[i].id != id) {
+            i++;
+        }
 
-    static deleteItem(idx) {
-        Drinks.itemList.splice(idx, 1);
-        Drinks.applyFilters();
+        if (i < this.itemList.length) {
+            return i;
+        }
+        return -1;
+    }
+
+    deleteItem(id) {
+        let idx = this.findIndexOfId(id)
+        this.itemList.splice(idx, 1);
+        this.applyFilters();
         // dispach a redraw ewent
     }
 
 
 }
-
-Drinks.init();

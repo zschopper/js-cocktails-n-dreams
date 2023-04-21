@@ -9,20 +9,24 @@ import { FilterUI } from "./filterUI.js";
 
 $(function () {
     console.log("Right, let's go adventuring!");
-    Drinks.loadItems();
+    let drinkList = new Drinks('assets/data/all_drinks.json');
+    drinkList.loadItems();
 
-    FilterUI.instance.initFields("#filter-container")
-    ItemsTable.instance.setContainer("#table-container");
+    FilterUI.instance
+        .setList(drinkList)
+        .initFields("#filter-container")
 
-    Drinks.addFilters([
+    drinkList.addFilters([
         { field: "category", value: "Shot" },
         { field: "alcoholic", value: "Alcoholic" },
-        { field: "glass", value: "Shot glass" } ,
+        { field: "glass", value: "Shot glass" },
         { field: "alcoholic", value: "Alcoholic" }, // it should be filtered out: it's a dupe
     ]);
 
-
-    ItemsTable.instance.buildTable(Drinks.filteredItemList);
+    ItemsTable.instance
+        .setContainer("#table-container")
+        .setList(drinkList)
+        .buildTable();
 });
 
 function utils() {

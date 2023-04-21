@@ -1,7 +1,5 @@
 "use strict";
 
-import { Drinks } from "./drinks.js";
-
 export class ItemsTable {
 
     constructor() {
@@ -10,6 +8,7 @@ export class ItemsTable {
             return ItemsTable._instance;
         }
         ItemsTable._instance = this;
+        this.drinkList = null;
         this.container = "";
     }
 
@@ -25,7 +24,15 @@ export class ItemsTable {
         return this;
     }
 
-    buildTable(items) {
+    setList(drinkList) {
+        this.drinkList = drinkList;
+        return this;
+    }
+
+    buildTable() {
+        let items = this.drinkList.filteredItemList
+        console.log("buildTable", this.drinkList.filteredItemList);
+
         let table = $(this.container + " table");
         if (!table.length) { // table does not exists
             // console.log("Table DOES NOT exists");
@@ -34,7 +41,7 @@ export class ItemsTable {
             if (items.length > 0) {
                 thead += "<tr>";
                 // console.log(fieldDefs);
-                for (let field of Drinks.fieldDefs) {
+                for (let field of this.drinkList.fieldDefs) {
                     if (field.displayOn.includes("table")) {
                         thead += `<th data-key="${field.name}" data-sortable="${field.sortable}">${field.title}</th>`;
                     }
@@ -53,19 +60,21 @@ export class ItemsTable {
         }
 
         if (items.length > 0) {
-            this.updateTableContent(items);
+            this.updateTableContent();
         } else {
             // this.container.append("<div/>").addClass("info").text("Nincs megjeleníhető elem");
         }
     }
 
-    updateTableContent(items) {
+    updateTableContent() {
+        let items = this.drinkList.filteredItemList;
         let html = "";
+
         for (let index in items) {
             let item = items[index];
 
-            html += `<tr data-internalid="${index}">`
-            for (let field of Drinks.fieldDefs) {
+            html += `<tr data-id="${item.id}">`
+            for (let field of this.drinkList.fieldDefs) {
                 if (field.displayOn.includes("table")) {
                     switch(field.displayAs) {
                         case "image":
@@ -96,17 +105,17 @@ export class ItemsTable {
 ItemsTable._instance = null;
 
 function deleteClick(event) {
-    let idx = $(event.target).closest("*[data-internalid]").attr("data-internalid");
+    let idx = $(event.target).closest("*[data-id]").attr("data-id");
     console.log("deleteClick", idx)
-    Drinks.deleteItem(idx);
-    ItemsTable.instance.buildTable(Drinks.filteredItemList);
+    ItemsTable.instance.drinkList.deleteItem(idx);
+    ItemsTable.instance.buildTable();
 }
 
 function editClick(event) {
-    let idx = $(event.target).closest("*[data-internalid]").attr("data-internalid");
+    let idx = $(event.target).closest("*[data-id]").attr("data-id");
     // openModal(itemList[idx], fieldDefs, modalParent);
     console.log("editClick", idx);
-    ItemsTable.instance.buildTable(Drinks.filteredItemList);
+    ItemsTable.instance.buildTable();
 }
 
 function sortColumnClick(event) {
@@ -118,7 +127,11 @@ function sortColumnClick(event) {
         $("th[aria-sort]").removeAttr("aria-sort");
         target.attr("aria-sort", "ascending");
     }
+    console.log("sortcolumnclick", this);
+    console.log("sortcolumnclick", $(this));
+    console.log("sortcolumnclick", event);
 
-    Drinks.sortItems(target.attr("data-key"), target.attr("aria-sort") === "ascending");
-    ItemsTable.instance.buildTable(Drinks.filteredItemList);
+
+    ItemsTable.instance.drinkList.sortItems(target.attr("data-key"), target.attr("aria-sort") === "ascending");
+    ItemsTable.instance.buildTable();
 }

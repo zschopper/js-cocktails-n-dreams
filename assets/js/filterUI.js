@@ -1,5 +1,3 @@
-import { Drinks } from "./drinks.js";
-
 export class FilterUI { // singleton class
 
     constructor() {
@@ -9,6 +7,8 @@ export class FilterUI { // singleton class
         }
         FilterUI._instance = this;
         this.container = "";
+        this.drinkList = null;
+
     }
 
     static get instance() {
@@ -18,12 +18,17 @@ export class FilterUI { // singleton class
         return FilterUI._instance;
     }
 
+    setList(drinkList) {
+        this.drinkList = drinkList;
+        return this;
+    }
+
     initFields(container) {
 
         this.container = container;
 
-        for (let key in Drinks.fieldDefs) {
-            let field = Drinks.fieldDefs[key];
+        for (let key in this.drinkList.fieldDefs) {
+            let field = this.drinkList.fieldDefs[key];
             if (field.filter != "") {
 
                 // console.log("FilterUI.initFields, FilterField: ", key, field);
@@ -40,9 +45,9 @@ export class FilterUI { // singleton class
                 } else if (field.filter == "list") {
                     // console.log("FilterField: (list)", key, field)
                     let options = "";
-                    // console.log("xx", Drinks.fieldValues, field.name);
+                    // console.log("xx", this.drinkList.fieldValues, field.name);
 
-                    let currentFieldValues = Drinks.fieldValues[field.name]
+                    let currentFieldValues = this.drinkList.fieldValues[field.name]
                     for (let key in currentFieldValues) {
                         let optionText = currentFieldValues[key];
                         if (optionText == "") {
