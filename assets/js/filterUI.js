@@ -1,4 +1,4 @@
-import { itemList, fieldDefs, fieldValues } from "./items.js";
+import { Drinks } from "./items.js";
 
 export class FilterUI { // singleton class
 
@@ -22,8 +22,8 @@ export class FilterUI { // singleton class
 
         this.container = container;
 
-        for (let key in fieldDefs) {
-            let field = fieldDefs[key];
+        for (let key in Drinks.fieldDefs) {
+            let field = Drinks.fieldDefs[key];
             if (field.filter != "") {
 
                 // console.log("FilterUI.initFields, FilterField: ", key, field);
@@ -33,9 +33,9 @@ export class FilterUI { // singleton class
                 } else if (field.filter == "list") {
                     // console.log("FilterField: (list)", key, field)
                     let options = "";
-                    // console.log("xx",fieldValues, field.name);
+                    // console.log("xx", Drinks.fieldValues, field.name);
 
-                    let currentFieldValues = fieldValues[field.name]
+                    let currentFieldValues = Drinks.fieldValues[field.name]
                     for (let key in currentFieldValues) {
                         let optionText = currentFieldValues[key];
                         if (optionText == "") {
@@ -56,25 +56,27 @@ export class FilterUI { // singleton class
         let text = target.text();
         let fieldName = target.data("fieldName")
         let fieldDisplayName = target.data("fieldDisplayName")
+
         if (target.is("select")) {
             let selected = target.children("option:selected");
             text = selected.text();
-            selected.prop("disabled", "true");
+            selected.prop("disabled", "true"); // disable selected item to avoid be selected again
         } else if (target.is("input:text")) {
-
             text = target.val();
             target.val("") // cleanup input after using its value
         }
 
         // console.log("filterFieldChange", target, value, text, fieldName, fieldDisplayName);
-        $(this.container).append(`<div class="filter-badge" data-field-name="${fieldName}" data-value="${value}">${fieldDisplayName}: ${text}<sm><button type="button" class="btn btn-sm btn-close" aria-label="Close"></button></sm></div>`)
-        $(this.container).children(".filter-badge").off().on("click", event => this.removeFilterClick(event))
-
+        $(this.container).append(`<div class="filter-badge" data-field-name="${fieldName}" data-value="${value}">${fieldDisplayName}: ${text}<button type="button" class="btn btn-sm btn-close" aria-label="Close"></button></div>`)
+        console.log($(this.container).children(".filter-badge button"))
+        $(this.container + " .filter-badge button").off().on("click", event => this.removeFilterClick(event))
     }
 
     removeFilterClick(event) {
+
         console.log("removeFilterClick")
-        $(event.target).remove()
+        // TODO: re-enable selected but disabled item.
+        $(event.target).parent(".filter-badge").remove()
     }
 }
 

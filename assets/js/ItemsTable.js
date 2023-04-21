@@ -1,6 +1,6 @@
 "use strict";
 
-import { fieldDefs, filteredItemList, itemList, sortItems } from "./items.js";
+import { Drinks } from "./items.js";
 
 export class ItemsTable {
 
@@ -34,7 +34,7 @@ export class ItemsTable {
             if (items.length > 0) {
                 thead += "<tr>";
                 // console.log(fieldDefs);
-                for (let field of fieldDefs) {
+                for (let field of Drinks.fieldDefs) {
                     if (field.displayOn.includes("table")) {
                         thead += `<th data-key="${field.name}" data-sortable="${field.sortable}">${field.title}</th>`;
                     }
@@ -46,8 +46,7 @@ export class ItemsTable {
                 `<thead class="table-dark">${thead}</thead>` +
                 `<tbody></tbody>` +
                 `</table>`);
-
-            $(this.container + " table th[data-sortable='true']").off().on("click", thClick);
+            $(this.container + " table th[data-sortable='true']").off("click", thClick).on("click", thClick);
 
         } else {
             $(this.container + " table tbody").empty();
@@ -66,7 +65,7 @@ export class ItemsTable {
             let item = items[index];
 
             html += `<tr data-internalid="${index}">`
-            for (let field of fieldDefs) {
+            for (let field of Drinks.fieldDefs) {
                 if (field.displayOn.includes("table")) {
                     switch(field.displayAs) {
                         case "image":
@@ -100,29 +99,26 @@ function deleteClick(event) {
     let idx = $(event.target).closest("*[data-internalid]").attr("data-internalid");
     console.log("deleteClick", idx)
     itemList.splice(idx, 1);
-    ItemsTable.instance.buildTable(filteredItemList);
+    ItemsTable.instance.buildTable(Drinks.filteredItemList);
 }
 
 function editClick(event) {
     let idx = $(event.target).closest("*[data-internalid]").attr("data-internalid");
     // openModal(itemList[idx], fieldDefs, modalParent);
     console.log("editClick", idx);
-    ItemsTable.instance.buildTable(filteredItemList);
+    ItemsTable.instance.buildTable(Drinks.filteredItemList);
 }
 
 function thClick(event) {
     let target = $(event.target)
 
-    if (target.attr("aria-sort") !== undefined) {
-        if (target.attr("aria-sort") == "ascending")
-            target.attr("aria-sort", "descending");
-        else if (target.attr("aria-sort") == "descending")
-            target.attr("aria-sort", "ascending");
+    if (target.attr("aria-sort") == "ascending") {
+        target.attr("aria-sort", "descending");
     } else {
         $("th[aria-sort]").removeAttr("aria-sort");
         target.attr("aria-sort", "ascending");
     }
-    sortItems(target.attr("data-key"), target.attr("aria-sort") === "ascending");
-    ItemsTable.instance.buildTable(filteredItemList);
 
+    Drinks.sortItems(target.attr("data-key"), target.attr("aria-sort") === "ascending");
+    ItemsTable.instance.buildTable(Drinks.filteredItemList);
 }
