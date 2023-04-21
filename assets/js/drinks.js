@@ -89,6 +89,8 @@ export class Drinks {
         ingredient: [],
     };
 
+    static filters = [];
+
     // create object from field def list (for quicker access of fields by their name)
     static fieldDefByName = {};
 
@@ -256,25 +258,46 @@ export class Drinks {
         });
     }
 
-    static filterItems(filters) {
-        // console.log("filterItems: filters", filters);
-        if (!filters) {
-            return itemList;
+    static addFilter(field, value, suppress=false) {
+        if (Drinks.findFilter(field, value) == -1) {
+            Drinks.filters.push({ field: field, value: value });
+
+            if (!suppress) {
+                Drinks.applyFilters()
+            }
         }
+    }
+
+    static findFilter(field, value) {
+        // check existance of each filter in the filter list
+        let idx = -1;
+        for (let i = 0; idx == -1 && i < Drinks.filters.length; i++) {
+            if (Drinks.filters[i].field == field && Drinks.filters[i].value == value) {
+                idx = i;
+            }
+        }
+        return idx;
+    }
+
+    static addFilters(items) {
+        for (let item of items) {
+            Drinks.addFilter(item.field, item.value, true);
+        }
+        return Drinks.applyFilters();
+    }
+
+    static applyFilters() {
+        console.log("applyFilters", Drinks.filters );
+
         let filterFields = {};
 
-        for (let filter of filters) {
-            let keyAndName = filter.split(":").map(element => element.trim());
-            if (keyAndName.length == 2) {
+        for (let filter of Drinks.filters) {
+            console.log("applyFilters: key/value", filter.field, filter.value);
 
-                let [key, value] = keyAndName;
-                // console.log("filterItems: key/value", key, value);
-
-                if (filterFields[key] == undefined) {
-                    filterFields[key] = [value];
-                } else {
-                    filterFields[key].push(value);
-                }
+            if (filterFields[filter.field] == undefined) {
+                filterFields[filter.field] = [filter.value];
+            } else {
+                filterFields[filter.field].push(filter.value);
             }
         }
 
@@ -288,7 +311,15 @@ export class Drinks {
             return true;
         });
         return Drinks.filteredItemList;
+
     }
+
+    static deleteItem(idx) {
+        Drinks.itemList.splice(idx, 1);
+        Drinks.applyFilters();
+        // dispach a redraw ewent
+    }
+
 
 }
 

@@ -1,4 +1,4 @@
-import { itemList, fieldDefs } from "./items.js";
+import { itemList, fieldDefs } from "./drinks.js";
 import { buildTable } from "./ItemsTable.js";
 
 // export function deleteClick(event) {

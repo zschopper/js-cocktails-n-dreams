@@ -1,6 +1,6 @@
 "use strict";
 
-import { Drinks } from "./items.js";
+import { Drinks } from "./drinks.js";
 
 export class ItemsTable {
 
@@ -46,7 +46,7 @@ export class ItemsTable {
                 `<thead class="table-dark">${thead}</thead>` +
                 `<tbody></tbody>` +
                 `</table>`);
-            $(this.container + " table th[data-sortable='true']").off("click", thClick).on("click", thClick);
+            $(this.container + " table th[data-sortable='true']").off("click", sortColumnClick).on("click", sortColumnClick);
 
         } else {
             $(this.container + " table tbody").empty();
@@ -98,7 +98,7 @@ ItemsTable._instance = null;
 function deleteClick(event) {
     let idx = $(event.target).closest("*[data-internalid]").attr("data-internalid");
     console.log("deleteClick", idx)
-    itemList.splice(idx, 1);
+    Drinks.deleteItem(idx);
     ItemsTable.instance.buildTable(Drinks.filteredItemList);
 }
 
@@ -109,7 +109,7 @@ function editClick(event) {
     ItemsTable.instance.buildTable(Drinks.filteredItemList);
 }
 
-function thClick(event) {
+function sortColumnClick(event) {
     let target = $(event.target)
 
     if (target.attr("aria-sort") == "ascending") {

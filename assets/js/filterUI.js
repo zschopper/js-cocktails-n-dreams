@@ -1,4 +1,4 @@
-import { Drinks } from "./items.js";
+import { Drinks } from "./drinks.js";
 
 export class FilterUI { // singleton class
 
@@ -29,7 +29,14 @@ export class FilterUI { // singleton class
                 // console.log("FilterUI.initFields, FilterField: ", key, field);
                 if (field.filter == "text") {
                     // console.log("FilterField: (text)", key, field)
-                    $(this.container).append(`<input type="text" name="${field.name}" data-field-name="${field.name}" data-field-display-name="${field.title}" class="filter-field" id="filter-${field.name}" placeholder="${field.title}" />`);
+                    $(this.container).append(`<input
+                        type="text"
+                        id="filter-${field.name}"
+                        name="${field.name}"
+                        data-field-name="${field.name}"
+                        data-field-display-name="${field.title}"
+                        class="filter-field"
+                        placeholder="${field.title}" />`);
                 } else if (field.filter == "list") {
                     // console.log("FilterField: (list)", key, field)
                     let options = "";
