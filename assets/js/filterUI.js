@@ -8,7 +8,6 @@ export class FilterUI { // singleton class
         FilterUI._instance = this;
         this.container = "";
         this.drinkList = null;
-
     }
 
     static get instance() {
@@ -31,9 +30,7 @@ export class FilterUI { // singleton class
             let field = this.drinkList.fieldDefs[key];
             if (field.filter != "") {
 
-                // console.log("FilterUI.initFields, FilterField: ", key, field);
                 if (field.filter == "text") {
-                    // console.log("FilterField: (text)", key, field)
                     $(this.container).append(`<input
                         type="text"
                         id="filter-${field.name}"
@@ -43,9 +40,7 @@ export class FilterUI { // singleton class
                         class="filter-field"
                         placeholder="${field.title}" />`);
                 } else if (field.filter == "list") {
-                    // console.log("FilterField: (list)", key, field)
                     let options = "";
-                    // console.log("xx", this.drinkList.fieldValues, field.name);
 
                     let currentFieldValues = this.drinkList.fieldValues[field.name]
                     for (let key in currentFieldValues) {
@@ -78,7 +73,6 @@ export class FilterUI { // singleton class
             target.val("") // cleanup input after using its value
         }
 
-        // console.log("filterFieldChange", target, value, text, fieldName, fieldDisplayName);
         $(this.container).append(`<div class="filter-badge" data-field-name="${fieldName}" data-value="${value}">${fieldDisplayName}: ${text}<button type="button" class="btn btn-sm btn-close" aria-label="Close"></button></div>`)
         console.log($(this.container).children(".filter-badge button"))
         $(this.container + " .filter-badge button").off().on("click", event => this.removeFilterClick(event))

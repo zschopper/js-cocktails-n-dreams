@@ -4,7 +4,6 @@ import { Drink } from "./drink.js";
 
 export class Drinks {
 
-
     constructor(dataFileName) {
         this.dataFileName = dataFileName;
         this.itemList = [];
@@ -14,8 +13,13 @@ export class Drinks {
         this.filters = [];
         this.fieldDefByName = {};
         this.initFieldDefs();
-    }
+        this.eventHandlers = {
+            "itemsChange": [],
+            "filteredItemsChange": [],
+            "filtersChange": [],
+        };
 
+    }
 
     // create object from field def list (for quicker access of fields by their name)
 
@@ -44,7 +48,6 @@ export class Drinks {
             dataType: 'json',
             success: function (data) {
                 console.log("loadItems", "load OK");
-                console.log("loadItems this", this)
                 this.fieldValues = {
                     alcoholic: [],
                     category: [],
@@ -93,22 +96,20 @@ export class Drinks {
                     this.fieldValues[key].unshift("")
                 }
 
+                this.applyFilters();
+                this.dispatchEvent("itemsChange", this);
+
             }.bind(this),
             fail: function () {
-                console.log("Loading items: An error has occurred.");
+                console.warn("Loading items: An error has occurred.");
             }
         });
     }
 
     sortItems(field, ascending = true) {
-        console.log("sortItems", [field, ascending]);
 
         let fieldDef = this.fieldDefByName[field];
-
-        console.log("sortItems:field", fieldDef);
-
         this.filteredItemList.sort((a, b) => {
-            // console.log("sort", a, b, fieldDef);
 
             let dir = 1;
             if (!ascending) {
@@ -117,8 +118,6 @@ export class Drinks {
 
             switch (fieldDef.displayAs) {
                 case "text":
-                    // console.log("cmp", a[field], b[field]);
-
                     return a[field].toString().localeCompare(b[field]) * dir;
                 case "number":
                     return (a[field] - b[field]) * dir;
@@ -126,9 +125,10 @@ export class Drinks {
                     return 1;
             }
         });
+        this.dispatchEvent("itemsChange", this);
     }
 
-    addFilter(field, value, suppress=false) {
+    addFilter(field, value, suppress = false) {
         if (this.findFilter(field, value) == -1) {
             this.filters.push({ field: field, value: value });
 
@@ -157,12 +157,10 @@ export class Drinks {
     }
 
     applyFilters() {
-        console.log("applyFilters", this.filters );
 
         let filterFields = {};
 
         for (let filter of this.filters) {
-            console.log("applyFilters: key/value", filter.field, filter.value);
 
             if (filterFields[filter.field] == undefined) {
                 filterFields[filter.field] = [filter.value];
@@ -180,12 +178,14 @@ export class Drinks {
             }
             return true;
         });
+        this.dispatchEvent("filtersChange", this);
+        this.dispatchEvent("itemsChange", this);
         return this.filteredItemList;
-
     }
+
     findIndexOfId(id) {
         let i = 0
-        while(i < this.itemList.length && this.itemList[i].id != id) {
+        while (i < this.itemList.length && this.itemList[i].id != id) {
             i++;
         }
 
@@ -202,5 +202,33 @@ export class Drinks {
         // dispach a redraw ewent
     }
 
+    on(event, callback) {
+        if (Object.keys(this.eventHandlers).includes(event)) {
+            this.eventHandlers[event].push(callback);
+        } else {
+            console.warn("Unknown event: ", event)
+        }
+        return this;
+    }
+
+    off(event, callback) {
+        if (Object.keys(this.eventHandlers).includes(event)) {
+            this.eventHandlers[event] = this.eventHandlers[event].filter(item => item != callback);
+        } else {
+            console.warn("Unknown event: ", event)
+        }
+        return this;
+    }
+
+    dispatchEvent(event, args) {
+        if (Object.keys(this.eventHandlers).includes(event)) {
+            for (let callback of this.eventHandlers[event]) {
+                callback(args);
+            }
+        } else {
+            console.warn("Unknown event: ", event)
+        }
+        return this;
+    }
 
 }

@@ -31,16 +31,16 @@ export class ItemsTable {
 
     buildTable() {
         let items = this.drinkList.filteredItemList
-        console.log("buildTable", this.drinkList.filteredItemList);
+
+        console.log("buildtable", items.length);
+
 
         let table = $(this.container + " table");
         if (!table.length) { // table does not exists
-            // console.log("Table DOES NOT exists");
             let thead = "";
 
             if (items.length > 0) {
                 thead += "<tr>";
-                // console.log(fieldDefs);
                 for (let field of this.drinkList.fieldDefs) {
                     if (field.displayOn.includes("table")) {
                         thead += `<th data-key="${field.name}" data-sortable="${field.sortable}">${field.title}</th>`;
@@ -64,6 +64,7 @@ export class ItemsTable {
         } else {
             // this.container.append("<div/>").addClass("info").text("Nincs megjeleníhető elem");
         }
+        return this;
     }
 
     updateTableContent() {
@@ -99,6 +100,8 @@ export class ItemsTable {
         $(this.container + " table tbody").empty().append(html);
         $(".data-operations .edit").on("click", editClick);
         $(".data-operations .delete").on("click", deleteClick);
+
+        return this;
     }
 }
 
@@ -106,7 +109,6 @@ ItemsTable._instance = null;
 
 function deleteClick(event) {
     let idx = $(event.target).closest("*[data-id]").attr("data-id");
-    console.log("deleteClick", idx)
     ItemsTable.instance.drinkList.deleteItem(idx);
     ItemsTable.instance.buildTable();
 }
@@ -114,7 +116,7 @@ function deleteClick(event) {
 function editClick(event) {
     let idx = $(event.target).closest("*[data-id]").attr("data-id");
     // openModal(itemList[idx], fieldDefs, modalParent);
-    console.log("editClick", idx);
+    // console.log("editClick", idx);
     ItemsTable.instance.buildTable();
 }
 
@@ -127,10 +129,6 @@ function sortColumnClick(event) {
         $("th[aria-sort]").removeAttr("aria-sort");
         target.attr("aria-sort", "ascending");
     }
-    console.log("sortcolumnclick", this);
-    console.log("sortcolumnclick", $(this));
-    console.log("sortcolumnclick", event);
-
 
     ItemsTable.instance.drinkList.sortItems(target.attr("data-key"), target.attr("aria-sort") === "ascending");
     ItemsTable.instance.buildTable();
