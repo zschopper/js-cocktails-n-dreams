@@ -26,5 +26,4 @@ $(function () {
         .setContainer("#table-container")
         .setList(drinkList)
         .buildTable();
-
 });

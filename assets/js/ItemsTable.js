@@ -26,7 +26,22 @@ export class ItemsTable {
 
     setList(drinkList) {
         this.drinkList = drinkList;
+        this.drinkList.on("itemsChange", (event) => {this.itemsChangeCallback()});
+        this.drinkList.on("itemsOrderChange", (event) => {this.itemsOrderChangeCallback()});
+
         return this;
+    }
+
+    itemsChangeCallback()
+    {
+        console.log("ItemsTable::itemsChangeCallback");
+        ItemsTable.instance.updateTableContent();
+    }
+
+
+    itemsOrderChangeCallback() {
+        console.log("ItemsTable::itemsOrderChangeCallback");
+        ItemsTable.instance.updateTableContent();
     }
 
     buildTable() {
@@ -110,14 +125,13 @@ ItemsTable._instance = null;
 function deleteClick(event) {
     let idx = $(event.target).closest("*[data-id]").attr("data-id");
     ItemsTable.instance.drinkList.deleteItem(idx);
-    ItemsTable.instance.buildTable();
 }
 
 function editClick(event) {
     let idx = $(event.target).closest("*[data-id]").attr("data-id");
     // openModal(itemList[idx], fieldDefs, modalParent);
     // console.log("editClick", idx);
-    ItemsTable.instance.buildTable();
+    // ItemsTable.instance.buildTable();
 }
 
 function sortColumnClick(event) {
@@ -131,5 +145,4 @@ function sortColumnClick(event) {
     }
 
     ItemsTable.instance.drinkList.sortItems(target.attr("data-key"), target.attr("aria-sort") === "ascending");
-    ItemsTable.instance.buildTable();
 }

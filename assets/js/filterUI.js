@@ -67,22 +67,36 @@ export class FilterUI { // singleton class
         if (target.is("select")) {
             let selected = target.children("option:selected");
             text = selected.text();
-            selected.prop("disabled", "true"); // disable selected item to avoid be selected again
+            selected.prop("selected", false)
+            selected.prop("disabled", true); // disable selected item to avoid be selected again
         } else if (target.is("input:text")) {
             text = target.val();
             target.val("") // cleanup input after using its value
         }
 
         $(this.container).append(`<div class="filter-badge" data-field-name="${fieldName}" data-value="${value}">${fieldDisplayName}: ${text}<button type="button" class="btn btn-sm btn-close" aria-label="Close"></button></div>`)
-        console.log($(this.container).children(".filter-badge button"))
+        // console.log($(this.container).children(".filter-badge button"))
         $(this.container + " .filter-badge button").off().on("click", event => this.removeFilterClick(event))
+        this.drinkList.addFilter(fieldName, value);
     }
 
     removeFilterClick(event) {
-
         console.log("removeFilterClick")
         // TODO: re-enable selected but disabled item.
-        $(event.target).parent(".filter-badge").remove()
+
+        // find field name & value
+        let dataParent = $(event.target).closest("[data-field-name]");
+        let fieldName = dataParent.attr("data-field-name");
+        let value = dataParent.attr("data-value");
+
+        // remove filter from Drinks filter list
+        this.drinkList.removeFilter(fieldName, value);
+
+        // re-enable select option
+        let select = $(`select[data-field-name=${fieldName}] option[value="${value}"]`).prop("disabled", false);
+
+        // remove badge
+        $(event.target).parent(".filter-badge").remove();
     }
 }
 

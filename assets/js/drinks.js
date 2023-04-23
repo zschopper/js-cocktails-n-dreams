@@ -17,6 +17,7 @@ export class Drinks {
             "itemsChange": [],
             "filteredItemsChange": [],
             "filtersChange": [],
+            "itemsOrderChange": [],
         };
 
     }
@@ -32,7 +33,7 @@ export class Drinks {
             { name: "image", title: "Image", displayAs: "image", displayOn: ["card"], sortable: false, filter: "", },
             { name: "glass", title: "Glass", displayAs: "text", displayOn: ["card", "table"], sortable: true, filter: "list", },
             { name: "iba", title: "IBA", displayAs: "text", displayOn: ["card", "table"], sortable: true, filter: "list", },
-            { name: "instructions", title: "Instructions", displayAs: "text", displayOn: ["card"], sortable: false, filter: "text", },
+            { name: "instructions", title: "Instructions", displayAs: "text", displayOn: ["card"], sortable: false, filter: "", },
             { name: "noOfIngredients", title: "No. of Ingr.", displayAs: "number", displayOn: ["table"], sortable: true, filter: "", },
         ];
 
@@ -126,6 +127,7 @@ export class Drinks {
             }
         });
         this.dispatchEvent("itemsChange", this);
+        this.dispatchEvent("itemsOrderChange", this);
     }
 
     addFilter(field, value, suppress = false) {
@@ -135,6 +137,17 @@ export class Drinks {
             if (!suppress) {
                 this.applyFilters()
             }
+        }
+    }
+
+    removeFilter(field, value) {
+        console.log("Drinks.removeFilter", field, value);
+
+        let idx = this.findFilter(field, value);
+        console.log("Drinks.removeFilter idx:", idx);
+        if (idx >= 0) {
+            this.filters.splice(idx, 1);
+            this.applyFilters();
         }
     }
 
@@ -167,20 +180,38 @@ export class Drinks {
             } else {
                 filterFields[filter.field].push(filter.value);
             }
+
         }
 
         this.filteredItemList = this.itemList.filter((item) => {
 
             for (let key in filterFields) {
-                if (!filterFields[key].includes(item[key])) {
-                    return false;
+
+                let fieldDef = this.fieldDefByName[key];
+                switch (fieldDef.filter) {
+                    case "list":
+                        if (!filterFields[key].includes(item[key])) {
+                            return false;
+                        }
+                        break;
+                    case "text":
+                        console.log("text filter", filterFields[key], item[key]);
+                        for (let filterVal of filterFields[key]) {
+                            if (!item[key].toString().match(filterVal)) {
+                                return false;
+                            }
+                        }
+                        break;
                 }
+
             }
             return true;
         });
+        console.log("applyFilters", this.filters, this.filteredItemList);
+
         this.dispatchEvent("filtersChange", this);
         this.dispatchEvent("itemsChange", this);
-        return this.filteredItemList;
+        return this;
     }
 
     findIndexOfId(id) {
@@ -195,11 +226,21 @@ export class Drinks {
         return -1;
     }
 
+    editItem(data) {
+        if (data.id !== undefined) {
+            ;
+        }
+    }
+
     deleteItem(id) {
         let idx = this.findIndexOfId(id)
         this.itemList.splice(idx, 1);
         this.applyFilters();
+        this.dispatchEvent("itemsChange", this);
+        this.dispatchEvent("filteredItemsChange", this);
+
         // dispach a redraw ewent
+
     }
 
     on(event, callback) {
@@ -221,6 +262,8 @@ export class Drinks {
     }
 
     dispatchEvent(event, args) {
+        console.log("Drinks.dispatchEvent", event);
+
         if (Object.keys(this.eventHandlers).includes(event)) {
             for (let callback of this.eventHandlers[event]) {
                 callback(args);
