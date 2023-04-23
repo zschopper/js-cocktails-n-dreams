@@ -197,7 +197,8 @@ export class Drinks {
                     case "text":
                         console.log("text filter", filterFields[key], item[key]);
                         for (let filterVal of filterFields[key]) {
-                            if (!item[key].toString().match(filterVal)) {
+                            let rx = new RegExp(filterVal, "i");
+                            if (!item[key].toString().match(rx)) {
                                 return false;
                             }
                         }
