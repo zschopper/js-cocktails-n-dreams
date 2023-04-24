@@ -49,33 +49,310 @@
                     <h1>Admin</h1>
                     <div id="filter-container"></div>
                     <div id="table-container"></div>
-                    <span> ME!</span>
                 </div>
             </div>
         </div>
     </main>
     <footer>
         <div class="container mt-5">
-            <p>Copyright &copy; 2023 zschopper - Minden jog fenntartva.</p>
+            <p>Copyright &copy; 2023 zschopper - All rights reserved.</p>
         </div>
-    </footer>
-    <div id="modal-parent">
-        <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Launch
             static backdrop modal </button>
-        <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    </footer>
+    <div id="modal-parent">
+        <div class="modal fade" id="drinksModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="drinksModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="drinksModalLabel">Modal title</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body"> ... </div>
+                    <div class="modal-body">
+                        <div id="field-container" class="container-fluid">
+                            <form action="#">
+                                <div class="form-group row">
+                                    <label for="form-field-id">Id.:</label>
+                                    <input type="text" id="form-field-id" name="id" data-field-id="id"
+                                        class="form-control" readonly>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="form-field-name">Name:</label>
+                                    <input type="text" id="form-field-name" name="name" data-field-name="name"
+                                        class="form-control" placeholder="Name">
+                                </div>
+                                <div class="form-group row">
+                                    <label for="form-field-category">Category:</label>
+                                    <select name="category" data-field-name="category" class="form-control"
+                                        id="form-field-category">
+                                        <option value="" disabled>Choose...</option>
+                                        <option value="Beer">Beer</option>
+                                        <option value="Cocktail">Cocktail</option>
+                                        <option value="Cocoa">Cocoa</option>
+                                        <option value="Coffee / Tea">Coffee / Tea</option>
+                                        <option value="Homemade Liqueur">Homemade Liqueur</option>
+                                        <option value="Milk / Float / Shake">Milk / Float / Shake</option>
+                                        <option value="Ordinary Drink">Ordinary Drink</option>
+                                        <option value="Other/Unknown">Other/Unknown</option>
+                                        <option value="Punch / Party Drink">Punch / Party Drink</option>
+                                        <option value="Shot">Shot</option>
+                                        <option value="Soft Drink / Soda">Soft Drink / Soda</option>
+                                    </select>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="form-field-alcoholic">Alcoholic:</label>
+                                    <select name="alcoholic" data-field-name="alcoholic" class="form-control"
+                                        id="form-field-alcoholic">
+                                        <option value="" disabled>Choose...</option>
+                                        <option value="Alcoholic">Alcoholic</option>
+                                        <option value="Non alcoholic">Non alcoholic</option>
+                                        <option value="Optional alcohol">Optional alcohol</option>
+                                    </select>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="form-field-glass">Glass:</label>
+                                    <select name="glass" data-field-name="glass" data-field-display-name="Glass"
+                                        class="form-control" id="form-field-glass">
+                                        <option value="" disabled>Choose...</option>
+                                        <option value="Beer glass">Beer glass</option>
+                                        <option value="Beer mug">Beer mug</option>
+                                        <option value="Beer pilsner">Beer pilsner</option>
+                                        <option value="Brandy snifter">Brandy snifter</option>
+                                        <option value="Champagne flute">Champagne flute</option>
+                                        <option value="Cocktail glass">Cocktail glass</option>
+                                        <option value="Coffee mug">Coffee mug</option>
+                                        <option value="Collins glass">Collins glass</option>
+                                        <option value="Copper mug">Copper mug</option>
+                                        <option value="Cordial glass">Cordial glass</option>
+                                        <option value="Highball glass">Highball glass</option>
+                                        <option value="Hurricane glass">Hurricane glass</option>
+                                        <option value="Irish coffee cup">Irish coffee cup</option>
+                                        <option value="Jar">Jar</option>
+                                        <option value="Margarita glass">Margarita glass</option>
+                                        <option value="Margarita/Coupette glass">Margarita/Coupette glass</option>
+                                        <option value="Martini glass">Martini glass</option>
+                                        <option value="Mason jar">Mason jar</option>
+                                        <option value="Old-Fashioned glass">Old-Fashioned glass</option>
+                                        <option value="Old-fashioned glass">Old-fashioned glass</option>
+                                        <option value="Parfait glass">Parfait glass</option>
+                                        <option value="Pint glass">Pint glass</option>
+                                        <option value="Pitcher">Pitcher</option>
+                                        <option value="Pousse cafe glass">Pousse cafe glass</option>
+                                        <option value="Punch bowl">Punch bowl</option>
+                                        <option value="Shot glass">Shot glass</option>
+                                        <option value="Whiskey sour glass">Whiskey sour glass</option>
+                                        <option value="White wine glass">White wine glass</option>
+                                        <option value="Wine glass">Wine glass</option>
+                                    </select>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="form-field-iba">International Bartenders Association:</label>
+                                    <select name="iba" data-field-name="iba" class="form-control" id="form-field-iba">
+                                        <option value="" disabled>Choose...</option>
+                                        <option value="Not Classified">Not Classified</option>
+                                        <option value="Contemporary Classics">Contemporary Classics</option>
+                                        <option value="New Era Drinks">New Era Drinks</option>
+                                        <option value="Unforgettables">Unforgettables</option>
+                                    </select>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="form-field-instructions">Instructions:</label>
+                                    <textarea name="instructions" data-field-name="instructions" class="form-control"
+                                        id="form-field-instructions" placeholder="Instructions">
+                                    </textarea>
+                                </div>
+                                <fieldset>
+                                    <legend>Ingredients</legend>
+                                    <div class="row">
+                                        <div class="form-row row">
+                                            <div class="form-group col-1">
+                                                <label for="form-field-ingredients-name-1">1.</label>
+                                            </div>
+                                            <div class="form-group col-7">
+                                                <input type="text" id="form-field-ing-1-name" name="ing-1-meas"
+                                                    data-field-name="ing-1-meas" class="form-control">
+                                            </div>
+                                            <div class="form-group col-4">
+                                                <input type="text" id="form-field-ing-1-meas" name="ing-1-name"
+                                                    data-field-name="ing-1-name" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" row">
+                                        <div class="form-row row">
+                                            <div class="form-group col-1">
+                                                <label for="form-field-ingredients-name-2">2.</label>
+                                            </div>
+                                            <div class="form-group col-7">
+                                                <input type="text" id="form-field-ing-2-name" name="ing-2-meas"
+                                                    data-field-name="ing-2-meas" class="form-control">
+                                            </div>
+                                            <div class="form-group col-4">
+                                                <input type="text" id="form-field-ing-2-meas" name="ing-2-name"
+                                                    data-field-name="ing-2-name" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-row row">
+                                            <div class="form-group col-1">
+                                                <label for="form-field-ingredients-name-3">3.</label>
+                                            </div>
+                                            <div class="form-group col-7">
+                                                <input type="text" id="form-field-ing-3-name" name="ing-3-meas"
+                                                    data-field-name="ing-3-meas" class="form-control">
+                                            </div>
+                                            <div class="form-group col-4">
+                                                <input type="text" id="form-field-ing-3-meas" name="ing-3-name"
+                                                    data-field-name="ing-3-name" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-row row">
+                                            <div class="form-group col-1">
+                                                <label for="form-field-ingredients-name-4">4.</label>
+                                            </div>
+                                            <div class="form-group col-7">
+                                                <input type="text" id="form-field-ing-4-name" name="ing-4-meas"
+                                                    data-field-name="ing-4-meas" class="form-control">
+                                            </div>
+                                            <div class="form-group col-4">
+                                                <input type="text" id="form-field-ing-4-meas" name="ing-4-name"
+                                                    data-field-name="ing-4-name" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-row row">
+                                            <div class="form-group col-1">
+                                                <label for="form-field-ingredients-name-5">5.</label>
+                                            </div>
+                                            <div class="form-group col-7">
+                                                <input type="text" id="form-field-ing-5-name" name="ing-5-meas"
+                                                    data-field-name="ing-5-meas" class="form-control">
+                                            </div>
+                                            <div class="form-group col-4">
+                                                <input type="text" id="form-field-ing-5-meas" name="ing-5-name"
+                                                    data-field-name="ing-1-name" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-row row">
+                                            <div class="form-group col-1">
+                                                <label for="form-field-ingredients-name-6">6.</label>
+                                            </div>
+                                            <div class="form-group col-7">
+                                                <input type="text" id="form-field-ing-6-name" name="ing-6-meas"
+                                                    data-field-name="ing-6-meas" class="form-control">
+                                            </div>
+                                            <div class="form-group col-4">
+                                                <input type="text" id="form-field-ing-6-meas" name="ing-6-name"
+                                                    data-field-name="ing-6-name" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-row row">
+                                            <div class="form-group col-1">
+                                                <label for="form-field-ingredients-name-7">7.</label>
+                                            </div>
+                                            <div class="form-group col-7">
+                                                <input type="text" id="form-field-ing-7-name" name="ing-7-meas"
+                                                    data-field-name="ing-7-meas" class="form-control">
+                                            </div>
+                                            <div class="form-group col-4">
+                                                <input type="text" id="form-field-ing-7-meas" name="ing-7-name"
+                                                    data-field-name="ing-7-name" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-row row">
+                                            <div class="form-group col-1">
+                                                <label for="form-field-ingredients-name-8">8.</label>
+                                            </div>
+                                            <div class="form-group col-7">
+                                                <input type="text" id="form-field-ing-8-name" name="ing-8-meas"
+                                                    data-field-name="ing-8-meas" class="form-control">
+                                            </div>
+                                            <div class="form-group col-4">
+                                                <input type="text" id="form-field-ing-8-meas" name="ing-8-name"
+                                                    data-field-name="ing-8-name" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-row row">
+                                            <div class="form-group col-1">
+                                                <label for="form-field-ingredients-name-9">9.</label>
+                                            </div>
+                                            <div class="form-group col-7">
+                                                <input type="text" id="form-field-ing-9-name" name="ing-9-meas"
+                                                    data-field-name="ing-9-meas" class="form-control">
+                                            </div>
+                                            <div class="form-group col-4">
+                                                <input type="text" id="form-field-ing-9-meas" name="ing-9-name"
+                                                    data-field-name="ing-1-name" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-row row">
+                                            <div class="form-group col-1">
+                                                <label for="form-field-ingredients-name-10">10.</label>
+                                            </div>
+                                            <div class="form-group col-7">
+                                                <input type="text" id="form-field-ing-10-name" name="ing-10-meas"
+                                                    data-field-name="ing-10-meas" class="form-control">
+                                            </div>
+                                            <div class="form-group col-4">
+                                                <input type="text" id="form-field-ing-10-meas" name="ing-10-name"
+                                                    data-field-name="ing-10-name" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-row row">
+                                            <div class="form-group col-1">
+                                                <label for="form-field-ingredients-name-11">11.</label>
+                                            </div>
+                                            <div class="form-group col-7">
+                                                <input type="text" id="form-field-ing-11-name" name="ing-11-meas"
+                                                    data-field-name="ing-11-meas" class="form-control">
+                                            </div>
+                                            <div class="form-group col-4">
+                                                <input type="text" id="form-field-ing-11-meas" name="ing-11-name"
+                                                    data-field-name="ing-11-name" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-row row">
+                                            <div class="form-group col-1">
+                                                <label for="form-field-ingredients-name-12">12.</label>
+                                            </div>
+                                            <div class="form-group col-7">
+                                                <input type="text" id="form-field-ing-12-name" name="ing-12-meas"
+                                                    data-field-name="ing-12-meas" class="form-control">
+                                            </div>
+                                            <div class="form-group col-4">
+                                                <input type="text" id="form-field-ing-12-meas" name="ing-12-name"
+                                                    data-field-name="ing-12-name" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Understood</button>
+                        <button type="button" id="btn-prev" class="btn btn-info">&laquo;</button>
+                        <button type="button" id="btn-next" class="btn btn-info">&raquo;</button>
+                        <button type="button" id="btn-apply" class="btn btn-secondary">Apply</button>
+                        <button type="button" id="btn-save" class="btn btn-primary">Save</button>
                     </div>
                 </div>
             </div>

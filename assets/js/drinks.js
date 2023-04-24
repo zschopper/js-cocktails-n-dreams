@@ -32,8 +32,9 @@ export class Drinks {
             { name: "alcoholic", title: "Alcoholic", displayAs: "text", displayOn: ["card", "table"], sortable: true, filter: "list", },
             { name: "image", title: "Image", displayAs: "image", displayOn: ["card"], sortable: false, filter: "", },
             { name: "glass", title: "Glass", displayAs: "text", displayOn: ["card", "table"], sortable: true, filter: "list", },
-            { name: "iba", title: "IBA", displayAs: "text", displayOn: ["card", "table"], sortable: true, filter: "list", },
+            { name: "iba", title: "Intl. Bartenders Assoc.", displayAs: "text", displayOn: ["card", "table"], sortable: true, filter: "list", },
             { name: "instructions", title: "Instructions", displayAs: "text", displayOn: ["card"], sortable: false, filter: "", },
+            { name: "ingredients", title: "Ingredients", displayAs: "text", displayOn: ["card"], sortable: false, filter: "", },
             { name: "noOfIngredients", title: "No. of Ingr.", displayAs: "number", displayOn: ["table"], sortable: true, filter: "", },
         ];
 
@@ -65,7 +66,7 @@ export class Drinks {
                         category: item.strCategory,
                         image: item.strDrinkThumb,
                         glass: item.strGlass,
-                        iba: item.strIBA,
+                        iba: item.strIBA.length? item.strIBA: "Not Classified",
                         instructions: item.strInstructions,
                         video: item.strVideo,
                         ingredients: [],
@@ -141,10 +142,7 @@ export class Drinks {
     }
 
     removeFilter(field, value) {
-        console.log("Drinks.removeFilter", field, value);
-
         let idx = this.findFilter(field, value);
-        console.log("Drinks.removeFilter idx:", idx);
         if (idx >= 0) {
             this.filters.splice(idx, 1);
             this.applyFilters();
@@ -195,7 +193,7 @@ export class Drinks {
                         }
                         break;
                     case "text":
-                        console.log("text filter", filterFields[key], item[key]);
+                        // console.log("text filter", filterFields[key], item[key]);
                         for (let filterVal of filterFields[key]) {
                             let rx = new RegExp(filterVal, "i");
                             if (!item[key].toString().match(rx)) {
@@ -208,7 +206,7 @@ export class Drinks {
             }
             return true;
         });
-        console.log("applyFilters", this.filters, this.filteredItemList);
+        // console.log("applyFilters", this.filters, this.filteredItemList);
 
         this.dispatchEvent("filtersChange", this);
         this.dispatchEvent("itemsChange", this);
@@ -225,6 +223,15 @@ export class Drinks {
             return i;
         }
         return -1;
+    }
+
+    findItemById(id) {
+        let idx = this.findIndexOfId(id)
+        console.log("findItemById", id, idx, this.itemList[idx]);
+
+        if (idx == -1)
+            return null
+        return this.itemList[idx];
     }
 
     editItem(data) {

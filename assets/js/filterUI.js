@@ -81,7 +81,7 @@ export class FilterUI { // singleton class
     }
 
     removeFilterClick(event) {
-        console.log("removeFilterClick")
+        // console.log("removeFilterClick")
         // TODO: re-enable selected but disabled item.
 
         // find field name & value

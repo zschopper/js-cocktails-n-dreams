@@ -1,5 +1,7 @@
 "use strict";
 
+import { EditUI } from "./editUI.js";
+
 export class ItemsTable {
 
     constructor() {
@@ -26,14 +28,13 @@ export class ItemsTable {
 
     setList(drinkList) {
         this.drinkList = drinkList;
-        this.drinkList.on("itemsChange", (event) => {this.itemsChangeCallback()});
-        this.drinkList.on("itemsOrderChange", (event) => {this.itemsOrderChangeCallback()});
+        this.drinkList.on("itemsChange", (event) => { this.itemsChangeCallback() });
+        this.drinkList.on("itemsOrderChange", (event) => { this.itemsOrderChangeCallback() });
 
         return this;
     }
 
-    itemsChangeCallback()
-    {
+    itemsChangeCallback() {
         console.log("ItemsTable::itemsChangeCallback");
         ItemsTable.instance.updateTableContent();
     }
@@ -46,10 +47,6 @@ export class ItemsTable {
 
     buildTable() {
         let items = this.drinkList.filteredItemList
-
-        console.log("buildtable", items.length);
-
-
         let table = $(this.container + " table");
         if (!table.length) { // table does not exists
             let thead = "";
@@ -92,7 +89,7 @@ export class ItemsTable {
             html += `<tr data-id="${item.id}">`
             for (let field of this.drinkList.fieldDefs) {
                 if (field.displayOn.includes("table")) {
-                    switch(field.displayAs) {
+                    switch (field.displayAs) {
                         case "image":
                             html += `<td data-type="${field.displayAs}"><img src="${item[field.name]}"/></td>`;
                             break;
@@ -122,15 +119,19 @@ export class ItemsTable {
 
 ItemsTable._instance = null;
 
+//refactor these function into the class
+
 function deleteClick(event) {
     let idx = $(event.target).closest("*[data-id]").attr("data-id");
     ItemsTable.instance.drinkList.deleteItem(idx);
 }
 
 function editClick(event) {
-    let idx = $(event.target).closest("*[data-id]").attr("data-id");
-    // openModal(itemList[idx], fieldDefs, modalParent);
-    // console.log("editClick", idx);
+    let id = $(event.target).closest("*[data-id]").attr("data-id");
+    let drink = ItemsTable.instance.drinkList.findItemById(id);
+    EditUI.instance.editItem(drink);
+    // openModal(itemList[id], fieldDefs, modalParent);
+    // console.log("editClick", id);
     // ItemsTable.instance.buildTable();
 }
 

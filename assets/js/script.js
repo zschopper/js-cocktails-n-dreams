@@ -4,7 +4,7 @@ import { ItemsTable } from "./ItemsTable.js";
 // import { openModal } from "./modal.js";
 import { Drinks } from "./drinks.js";
 import { FilterUI } from "./filterUI.js";
-
+import { EditUI } from "./editUI.js";
 
 $(function () {
     console.log("Right, let's go adventuring!");
@@ -26,4 +26,8 @@ $(function () {
         .setContainer("#table-container")
         .setList(drinkList)
         .buildTable();
+
+    EditUI.instance
+        .setContainer("#drinksModal")
+        .setList(drinkList);
 });
