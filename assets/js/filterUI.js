@@ -81,9 +81,6 @@ export class FilterUI { // singleton class
     }
 
     removeFilterClick(event) {
-        // console.log("removeFilterClick")
-        // TODO: re-enable selected but disabled item.
-
         // find field name & value
         let dataParent = $(event.target).closest("[data-field-name]");
         let fieldName = dataParent.attr("data-field-name");

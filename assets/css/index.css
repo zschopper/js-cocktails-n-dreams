@@ -1,31 +1,31 @@
 .data-operations {
-    visibility: hidden;
-    /* display: none; */
-    float: right;
-    /* position: absolute; */
-    /* right: 0px; */
+  visibility: hidden;
+  /* display: none; */
+  float: right;
+  /* position: absolute; */
+  /* right: 0px; */
 }
 
 .data-operations > * {
-    padding-left: 3px;
+  padding-left: 3px;
 }
 
 tr:hover .data-operations {
-    visibility: visible;
-    /* display: inline; */
+  visibility: visible;
+  /* display: inline; */
 }
 
 .data-operations .edit:hover {
-    color: forestgreen;
-    transition-duration: 200ms;
-    font-weight: bold;
-    cursor: pointer;
+  color: forestgreen;
+  transition-duration: 200ms;
+  font-weight: bold;
+  cursor: pointer;
 }
 .data-operations .delete:hover {
-    color: red;
-    transition-duration: 200ms;
-    font-weight: bold;
-    cursor: pointer;
+  color: red;
+  transition-duration: 200ms;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 table thead > tr > th[data-sortable] {
@@ -77,4 +77,19 @@ table td {
 
 tr:nth-child(even) {
   background-color: #00000005;
+}
+
+fieldset {
+  font-size: 110%;
+
+}
+
+.scrollable {
+  max-height: 300px;
+  /* overflow: scroll; */
+  overflow-y: scroll;
+}
+
+.scrollable-inner {
+  width: 95%;
 }
