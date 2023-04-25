@@ -7,7 +7,7 @@ export class ItemsTable {
 
     constructor() {
         if (ItemsTable._instance) {
-            console.warn("Already created")
+            console.warn("Already created");
             return ItemsTable._instance;
         }
         ItemsTable._instance = this;
@@ -39,7 +39,6 @@ export class ItemsTable {
         console.log("ItemsTable::itemsChangeCallback");
         ItemsTable.instance.updateTableContent();
     }
-
 
     itemsOrderChangeCallback() {
         console.log("ItemsTable::itemsOrderChangeCallback");

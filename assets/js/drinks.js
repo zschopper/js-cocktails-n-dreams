@@ -11,6 +11,7 @@ export class Drinks {
         this.filteredItemList = [];
         this.fieldDefs = [];
         this.fieldValues = {};
+        this._nameFilter = "";
         this.filters = [];
         this.fieldDefByName = {};
         this.initFieldDefs();
@@ -23,6 +24,29 @@ export class Drinks {
     }
 
     // create object from field def list (for quicker access of fields by their name)
+
+    get nameFilter() {
+        return this._nameFilter;
+
+    }
+
+    set nameFilter(value) {
+        let delayMS = 2000;
+        this._nameFilter = value;
+        {
+            let yvalue = this._nameFilter;
+            new Promise(resolve => setTimeout(resolve, delayMS)).then((xvalue = this._nameFilter) => {
+                if (xvalue == yvalue) {
+                    console.log(`Hello! ${xvalue} ${yvalue}`);
+                    console.log("this", this);
+
+                    this.applyFilters();
+                }
+            });
+
+        }
+    }
+
 
     initFieldDefs() {
         this.fieldDefs = [
@@ -66,7 +90,7 @@ export class Drinks {
                         category: item.strCategory,
                         image: item.strDrinkThumb,
                         glass: item.strGlass,
-                        iba: item.strIBA? item.strIBA: "Not Classified",
+                        iba: item.strIBA ? item.strIBA : "Not Classified",
                         instructions: item.strInstructions,
                         video: item.strVideo,
                         ingredients: [],
@@ -110,6 +134,7 @@ export class Drinks {
                 console.warn("Loading items: An error has occurred.");
             }
         });
+        return this;
     }
 
     sortItems(field, ascending = true) {
@@ -183,8 +208,14 @@ export class Drinks {
 
         this.filteredItemList = this.itemList.filter((item) => {
 
-            for (let key in filterFields) {
+            if (this._nameFilter) {
+                let rx = new RegExp(this._nameFilter, "i");
+                if (!item.name.toString().match(rx)) {
+                    return false;
+                }
+            }
 
+            for (let key in filterFields) {
                 let fieldDef = this.fieldDefByName[key];
                 switch (fieldDef.filter) {
                     case "list":
@@ -193,7 +224,6 @@ export class Drinks {
                         }
                         break;
                     case "text":
-                        // console.log("text filter", filterFields[key], item[key]);
                         for (let filterVal of filterFields[key]) {
                             let rx = new RegExp(filterVal, "i");
                             if (!item[key].toString().match(rx)) {

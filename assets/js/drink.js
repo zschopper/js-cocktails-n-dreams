@@ -20,6 +20,5 @@ export class Drink {
 
     contains(what) {
         return this.ingredients.includes(what);
-
     }
 }

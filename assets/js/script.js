@@ -1,34 +1,46 @@
 "use strict";
 
-import { ItemsTable } from "./ItemsTable.js";
-// import { openModal } from "./modal.js";
+import { ItemsTable } from "./itemsTable.js";
+import { ItemsGallery } from "./itemsGallery.js";
 import { Drinks } from "./drinks.js";
 import { FilterUI } from "./filterUI.js";
 import { EditUI } from "./editUI.js";
 
 $(function () {
     console.log("Right, let's go adventuring!");
-    let drinkList = new Drinks('assets/data/all_drinks.json');
-    drinkList.loadItems();
+    let in_admin_mode = window.location.pathname == "/admin.html";
 
-    FilterUI.instance
-        .setList(drinkList)
-        .setContainer("#filter-container")
-        .setBadgeContainer("#filter-badge-container")
+    let drinkList = new Drinks('assets/data/all_drinks.json')
+        .loadItems();
 
-    // drinkList.addFilters([
-    //     { field: "category", value: "Shot" },
-    //     { field: "alcoholic", value: "Alcoholic" },
-    //     { field: "glass", value: "Shot glass" },
-    //     { field: "alcoholic", value: "Alcoholic" }, // it should be filtered out: it's a dupe
-    // ]);
+    if (in_admin_mode) {
 
-    ItemsTable.instance
-        .setContainer("#table-container")
-        .setList(drinkList)
-        .buildTable();
+        FilterUI.instance
+            .setList(drinkList)
+            .setContainer("#filter-container")
+            .setBadgeContainer("#filter-badge-container");
 
-    EditUI.instance
-        .setContainer("#drinksModal")
-        .setList(drinkList);
+        ItemsTable.instance
+            .setContainer("#table-container")
+            .setList(drinkList)
+            .buildTable();
+
+        EditUI.instance
+            .setContainer("#drinksModal")
+            .setList(drinkList);
+    } else {
+        ItemsGallery.instance
+            .setContainer("#gallery-container")
+            .setList(drinkList)
+            .renderItems();
+
+        $("#filter-by-name").on("input", event => {
+            let value = $("#filter-by-name").val()
+            console.log("input!", value);
+            drinkList.nameFilter = value;
+        })
+    }
+
 });
+
+

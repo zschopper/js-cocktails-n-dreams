@@ -1,4 +1,100 @@
-table td[data-type="number"] {
+.data-operations {
+    visibility: hidden;
+    /* display: none; */
+    float: right;
+    /* position: absolute; */
+    /* right: 0px; */
+  }
+
+  .data-operations > * {
+    padding-left: 3px;
+  }
+
+  tr:hover .data-operations {
+    visibility: visible;
+    /* display: inline; */
+  }
+
+  .data-operations .edit:hover {
+    color: forestgreen;
+    transition-duration: 200ms;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .data-operations .delete:hover {
+    color: red;
+    transition-duration: 200ms;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  table thead > tr > th[data-sortable] {
+    cursor: pointer;
+    padding-right: 30px;
+    position: relative;
+  }
+
+  table thead > tr > th:active {
+    outline: 0;
+  }
+
+  table thead [data-sortable]:after,
+  table thead [data-sortable]:before {
+    position: absolute;
+    bottom: 0.5em;
+    display: block;
+    opacity: 0.3;
+  }
+
+  table thead [data-sortable]:before {
+    right: 1em;
+    content: "\f0de";
+    font-family: "Font Awesome\ 5 Free";
+    font-weight: 900;
+    font-size: 1rem;
+  }
+
+  table thead [data-sortable]:after {
+    content: "\f0dd";
+    font-family: "Font Awesome\ 5 Free";
+    font-weight: 900;
+    right: 16px;
+    font-size: 1rem;
+  }
+
+  table thead [data-sortable]:before,
+  table thead [data-sortable]:after {
+    opacity: 1;
+  }
+
+  table tbody tr {
+    border-top: 1px solid #00000010;
+  }
+
+  table td {
+    padding: 0 20px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #00000005;
+  }
+
+  fieldset {
+    font-size: 110%;
+
+  }
+
+  .scrollable {
+    max-height: 300px;
+    /* overflow: scroll; */
+    overflow-y: scroll;
+  }
+
+  .scrollable-inner {
+    width: 95%;
+  }
+
+  table td[data-type="number"] {
     text-align: right;
 }
 

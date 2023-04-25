@@ -1,95 +1,55 @@
-.data-operations {
-  visibility: hidden;
+#xxxx-gallery-container {
+  display: flex;
+  overflow-x: auto;
+  width: 10000px;
   /* display: none; */
-  float: right;
-  /* position: absolute; */
-  /* right: 0px; */
+
+  /* flex-direction: column; */
+}
+/* #gallery-container::-webkit-scrollbar {
+  display: none;
+} */
+
+div.card {
+  width: 300px;
 }
 
-.data-operations > * {
-  padding-left: 3px;
+div.card img {
+  width: 100%;
+  width: 20%;
 }
 
-tr:hover .data-operations {
-  visibility: visible;
-  /* display: inline; */
-}
-
-.data-operations .edit:hover {
-  color: forestgreen;
-  transition-duration: 200ms;
-  font-weight: bold;
-  cursor: pointer;
-}
-.data-operations .delete:hover {
-  color: red;
-  transition-duration: 200ms;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-table thead > tr > th[data-sortable] {
-  cursor: pointer;
-  padding-right: 30px;
+#gallery-container {
   position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  transition: all 0.2s;
+  /*transform: scale(0.98);*/
+  will-change: transform;
+  user-select: none;
+  cursor: pointer;
 }
 
-table thead > tr > th:active {
-  outline: 0;
+#gallery-container.active {
+  background: rgba(255, 255, 255, 0.3);
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  /*transform: scale(0.99);*/
 }
 
-table thead [data-sortable]:after,
-table thead [data-sortable]:before {
-  position: absolute;
-  bottom: 0.5em;
-  display: block;
-  opacity: 0.3;
+.card {
+  display: inline-block;
+  min-height: 150px;
+  min-width: 200px;
+  margin: 2px 5px;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 6px -2px rgba(0, 0, 0, 0.75);
+  transition: 0.2s ease-in-out 0s;
 }
 
-table thead [data-sortable]:before {
-  right: 1em;
-  content: "\f0de";
-  font-family: "Font Awesome\ 5 Free";
-  font-weight: 900;
-  font-size: 1rem;
-}
-
-table thead [data-sortable]:after {
-  content: "\f0dd";
-  font-family: "Font Awesome\ 5 Free";
-  font-weight: 900;
-  right: 16px;
-  font-size: 1rem;
-}
-
-table thead [data-sortable]:before,
-table thead [data-sortable]:after {
-  opacity: 1;
-}
-
-table tbody tr {
-  border-top: 1px solid #00000010;
-}
-
-table td {
-  padding: 0 20px;
-}
-
-tr:nth-child(even) {
-  background-color: #00000005;
-}
-
-fieldset {
-  font-size: 110%;
-
-}
-
-.scrollable {
-  max-height: 300px;
-  /* overflow: scroll; */
-  overflow-y: scroll;
-}
-
-.scrollable-inner {
-  width: 95%;
+#gallery-container.active .card {
+  box-shadow: inset 0px 0px 12px -2px rgba(0, 0, 0, 0.75);
 }
