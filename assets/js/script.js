@@ -13,7 +13,8 @@ $(function () {
 
     FilterUI.instance
         .setList(drinkList)
-        .initFields("#filter-container")
+        .setContainer("#filter-container")
+        .setBadgeContainer("#filter-badge-container")
 
     // drinkList.addFilters([
     //     { field: "category", value: "Shot" },

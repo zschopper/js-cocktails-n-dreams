@@ -7,6 +7,7 @@ export class FilterUI { // singleton class
         }
         FilterUI._instance = this;
         this.container = "";
+        this.badgeContainer = "";
         this.drinkList = null;
     }
 
@@ -22,39 +23,15 @@ export class FilterUI { // singleton class
         return this;
     }
 
-    initFields(container) {
-
+    setContainer(container) {
         this.container = container;
-
-        for (let key in this.drinkList.fieldDefs) {
-            let field = this.drinkList.fieldDefs[key];
-            if (field.filter != "") {
-
-                if (field.filter == "text") {
-                    $(this.container).append(`<input
-                        type="text"
-                        id="filter-${field.name}"
-                        name="${field.name}"
-                        data-field-name="${field.name}"
-                        data-field-display-name="${field.title}"
-                        class="filter-field"
-                        placeholder="${field.title}" />`);
-                } else if (field.filter == "list") {
-                    let options = "";
-
-                    let currentFieldValues = this.drinkList.fieldValues[field.name]
-                    for (let key in currentFieldValues) {
-                        let optionText = currentFieldValues[key];
-                        if (optionText == "") {
-                            optionText = "&lt;" + field.title + "&gt;";
-                        }
-                        options += `<option value="${currentFieldValues[key]}">${optionText}</option>`;
-                    }
-                    $(this.container).append(`<select name="${field.name}" data-field-name="${field.name}" data-field-display-name="${field.title}" class="filter-field" id="filter-${field.name}" placeholder="${field.title}">${options}</select>`);
-                }
-            }
-        }
         $(this.container + " .filter-field").on("change", event => { this.filterFieldChange(event); });
+        return this;
+    }
+
+    setBadgeContainer(container) {
+        this.badgeContainer = container;
+        return this;
     }
 
     filterFieldChange(event) {
@@ -74,9 +51,9 @@ export class FilterUI { // singleton class
             target.val("") // cleanup input after using its value
         }
 
-        $(this.container).append(`<div class="filter-badge" data-field-name="${fieldName}" data-value="${value}">${fieldDisplayName}: ${text}<button type="button" class="btn btn-sm btn-close" aria-label="Close"></button></div>`)
+        $(this.badgeContainer).append(`<div class="btn btn-secondary filter-badge" data-field-name="${fieldName}" data-value="${value}">${fieldDisplayName}: ${text} <button type="button" class="btn btn-sm btn-close" aria-label="Close"></button> </div>`)
         // console.log($(this.container).children(".filter-badge button"))
-        $(this.container + " .filter-badge button").off().on("click", event => this.removeFilterClick(event))
+        $(this.badgeContainer + " .filter-badge button").off().on("click", event => this.removeFilterClick(event))
         this.drinkList.addFilter(fieldName, value);
     }
 

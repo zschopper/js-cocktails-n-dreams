@@ -20,7 +20,6 @@ export class Drinks {
             "filtersChange": [],
             "itemsOrderChange": [],
         };
-
     }
 
     // create object from field def list (for quicker access of fields by their name)
@@ -114,7 +113,6 @@ export class Drinks {
     }
 
     sortItems(field, ascending = true) {
-
         let fieldDef = this.fieldDefByName[field];
         this.filteredItemList.sort((a, b) => {
 
@@ -173,17 +171,14 @@ export class Drinks {
     }
 
     applyFilters() {
-
         let filterFields = {};
 
         for (let filter of this.filters) {
-
             if (filterFields[filter.field] == undefined) {
                 filterFields[filter.field] = [filter.value];
             } else {
                 filterFields[filter.field].push(filter.value);
             }
-
         }
 
         this.filteredItemList = this.itemList.filter((item) => {
@@ -207,7 +202,6 @@ export class Drinks {
                         }
                         break;
                 }
-
             }
             return true;
         });
@@ -239,27 +233,18 @@ export class Drinks {
         return this.itemList[idx];
     }
 
-    editItem(data) {
-        if (data.id !== undefined) {
-            ;
-        }
-    }
-
     deleteItem(id) {
         let idx = this.findIndexOfId(id)
         this.itemList.splice(idx, 1);
         this.applyFilters();
         this.dispatchEvent("itemsChange", this);
         this.dispatchEvent("filteredItemsChange", this);
-
-        // dispach a redraw ewent
-
     }
 
     saveItem(drink) {
-        let idx = -1
+        let idx = -1;
         if (drink.id !== undefined) {
-            idx = this.findIndexOfId(drink.id)
+            idx = this.findIndexOfId(drink.id);
         }
         if (idx == -1) { // new
             // console.log("saveItem: saved as new", drink);
@@ -278,7 +263,7 @@ export class Drinks {
         if (Object.keys(this.eventHandlers).includes(event)) {
             this.eventHandlers[event].push(callback);
         } else {
-            console.warn("Unknown event: ", event)
+            console.warn("Unknown event: ", event);
         }
         return this;
     }
@@ -287,7 +272,7 @@ export class Drinks {
         if (Object.keys(this.eventHandlers).includes(event)) {
             this.eventHandlers[event] = this.eventHandlers[event].filter(item => item != callback);
         } else {
-            console.warn("Unknown event: ", event)
+            console.warn("Unknown event: ", event);
         }
         return this;
     }
@@ -300,14 +285,14 @@ export class Drinks {
                 callback(args);
             }
         } else {
-            console.warn("Unknown event: ", event)
+            console.warn("Unknown event: ", event);
         }
         return this;
     }
 
     get newId() {
-        this._newId++
-        return this._newId
+        this._newId++;
+        return this._newId;
     }
 
 }

@@ -1,3 +1,7 @@
 table td[data-type="number"] {
     text-align: right;
 }
+
+#filter-badge-container {
+    min-height: 30px;
+}

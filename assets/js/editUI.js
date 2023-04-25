@@ -10,7 +10,6 @@ export class EditUI {
         EditUI._instance = this;
         this.container = "";
         this.drinkList = null;
-
     }
 
     static get instance() {
@@ -111,7 +110,7 @@ export class EditUI {
     }
 
     viewItem(item) {
-        // same as edit but controls are read-only
+        // TODO: same as edit but controls are read-only
     }
 
     editItem(item) {
@@ -126,7 +125,7 @@ export class EditUI {
 
     newItem(item) {
         $(this.container + " .modal-header h1").text("New Drink");
-        // hide prev/next
+        // TODO: hide prev/next
         $(this.container).modal("show");
     }
 
