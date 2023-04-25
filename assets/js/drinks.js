@@ -5,6 +5,7 @@ import { Drink } from "./drink.js";
 export class Drinks {
 
     constructor(dataFileName) {
+        this._newId = 0;
         this.dataFileName = dataFileName;
         this.itemList = [];
         this.filteredItemList = [];
@@ -70,6 +71,10 @@ export class Drinks {
                         instructions: item.strInstructions,
                         video: item.strVideo,
                         ingredients: [],
+                    }
+
+                    if (this._newId < item.no) {
+                        this._newId = item.no;
                     }
 
                     this.fieldValues["alcoholic"].push(values.alcoholic);
@@ -258,13 +263,7 @@ export class Drinks {
         }
         if (idx == -1) { // new
             // console.log("saveItem: saved as new", drink);
-            let max = 0;
-            this.itemList.forEach(element => {
-                if (max < element.id) {
-                    max = element.id;
-                }
-            });
-            drink.id = max + 1;
+            drink.id = this.newId;
             this.itemList.push(drink);
 
         } else { // existing
@@ -304,6 +303,11 @@ export class Drinks {
             console.warn("Unknown event: ", event)
         }
         return this;
+    }
+
+    get newId() {
+        this._newId++
+        return this._newId
     }
 
 }
