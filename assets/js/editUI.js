@@ -1,9 +1,5 @@
 import { Drink } from "./drink.js";
 
-/*
-#modal-parent .modal-header .modal-title
-*/
-
 export class EditUI {
 
     constructor() {
@@ -27,12 +23,16 @@ export class EditUI {
     setContainer(container) {
         this.container = container;
         $("#btn-apply").on("click", function (event) {
-            console.log("apply clicked", this);
+            let item = this.readItemFromControls();
+            this.drinkList.saveItem(item);
+            console.log("apply clicked", item, this);
         }.bind(this));
 
         $("#btn-save").on("click", function (event) {
-            console.log("save clicked", this);
+            let item = this.readItemFromControls();
             $(this.container).modal("hide");
+            this.drinkList.saveItem(item);
+            console.log("save clicked", item, this);
         }.bind(this));
 
         $("#btn-prev").on("click", function (event) {
@@ -43,16 +43,16 @@ export class EditUI {
                 idx = this.drinkList.filteredItemList.length - 1;
             }
             let newItem = this.drinkList.filteredItemList[idx];
-            this.writeItemToControls(newItem)
+            this.writeItemToControls(newItem);
         }.bind(this));
 
         $("#btn-next").on("click", function (event) {
             let id = $("#form-field-id").val();
             let item = this.drinkList.findItemById(id);
-            let idx = this.drinkList.filteredItemList.indexOf(item)
+            let idx = this.drinkList.filteredItemList.indexOf(item);
             idx = (++idx % this.drinkList.filteredItemList.length);
             let newItem = this.drinkList.filteredItemList[idx];
-            this.writeItemToControls(newItem)
+            this.writeItemToControls(newItem);
         }.bind(this));
         return this;
     }
@@ -75,7 +75,6 @@ export class EditUI {
         $("#form-field-instructions").val(item.instructions);
         for (let i = 0; i < 12; i++) {
             if (i < item.ingredients.length) {
-                console.log(i, item.ingredients[i])
                 $(`#form-field-ing-${i + 1}-name`).val(item.ingredients[i].ingredient);
                 $(`#form-field-ing-${i + 1}-meas`).val(item.ingredients[i].measure);
             } else {
@@ -88,29 +87,31 @@ export class EditUI {
 
     readItemFromControls() {
         let form = $(this.container + " form");
-        let drink = new Drink();
 
-        console.log("loadItemToControls", item);
-
-        $("#form-field-id").val(item.id);
-        $("#form-field-name").val(item.name);
-        $(`#form-field-category option[value="${item.category}"]`).prop("selected", true);
-        $(`#form-field-alcoholic option[value="${item.alcoholic}"]`).prop("selected", true);
-        $(`#form-field-glass option[value="${item.glass}"]`).prop("selected", true);
-        $(`#form-field-iba option[value="${item.iba}"]`).prop("selected", true);
-        $("#form-field-instructions").val(item.instructions);
+        let ingredients = [];
         for (let i = 0; i < 12; i++) {
-            if (i < item.ingredients.length) {
-                console.log(i, item.ingredients[i])
-                $(`#form-field-ing-${i + 1}-name`).val(item.ingredients[i].ingredient);
-                $(`#form-field-ing-${i + 1}-meas`).val(item.ingredients[i].measure);
-            } else {
-                console.log(i, "no")
-                $(`#form-field-ing-${i + 1}-name`).val("");
-                $(`#form-field-ing-${i + 1}-meas`).val("");
+            let ingredient = $(`#form-field-ing-${i + 1}-name`).val().trim();
+            let measure = $(`#form-field-ing-${i + 1}-meas`).val().trim();
+            if (ingredient) {
+                ingredients.push({ ingredient: ingredient, measure: measure });
             }
         }
-        return {};
+
+        let item = {
+            id: $("#form-field-id").val(),
+            name: $("#form-field-name").val(),
+            category: $(`#form-field-category`).val(),
+            alcoholic: $(`#form-field-alcoholic`).val(),
+            glass: $(`#form-field-glass`).val(),
+            iba: $(`#form-field-iba`).val(),
+            instructions: $("#form-field-instructions").val(),
+            ingredients: ingredients,
+        }
+        return new Drink(item);
+    }
+
+    viewItem(item) {
+        // same as edit but controls are read-only
     }
 
     editItem(item) {
@@ -121,7 +122,6 @@ export class EditUI {
         // show prev/next
         // $(this.container + " .modal-header h1").text("Edit item");
         $(this.container).modal("show");
-
     }
 
     newItem(item) {
@@ -130,13 +130,6 @@ export class EditUI {
         $(this.container).modal("show");
     }
 
-    loadNext() {
-
-    }
-
-    loadPrev() {
-
-    }
 }
 
 EditUI._instance = null;

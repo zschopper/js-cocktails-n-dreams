@@ -1,6 +1,7 @@
 "use strict";
 
 import { EditUI } from "./editUI.js";
+import { Drink } from "./drink.js";
 
 export class ItemsTable {
 
@@ -112,6 +113,8 @@ export class ItemsTable {
         $(this.container + " table tbody").empty().append(html);
         $(".data-operations .edit").on("click", editClick);
         $(".data-operations .delete").on("click", deleteClick);
+        $(".new-item").on("click", newClick);
+
 
         return this;
     }
@@ -126,13 +129,14 @@ function deleteClick(event) {
     ItemsTable.instance.drinkList.deleteItem(idx);
 }
 
+function newClick(event) {
+    EditUI.instance.editItem(new Drink());
+}
+
 function editClick(event) {
     let id = $(event.target).closest("*[data-id]").attr("data-id");
     let drink = ItemsTable.instance.drinkList.findItemById(id);
     EditUI.instance.editItem(drink);
-    // openModal(itemList[id], fieldDefs, modalParent);
-    // console.log("editClick", id);
-    // ItemsTable.instance.buildTable();
 }
 
 function sortColumnClick(event) {

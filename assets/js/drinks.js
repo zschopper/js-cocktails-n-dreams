@@ -66,7 +66,7 @@ export class Drinks {
                         category: item.strCategory,
                         image: item.strDrinkThumb,
                         glass: item.strGlass,
-                        iba: item.strIBA.length? item.strIBA: "Not Classified",
+                        iba: item.strIBA? item.strIBA: "Not Classified",
                         instructions: item.strInstructions,
                         video: item.strVideo,
                         ingredients: [],
@@ -249,6 +249,30 @@ export class Drinks {
 
         // dispach a redraw ewent
 
+    }
+
+    saveItem(drink) {
+        let idx = -1
+        if (drink.id !== undefined) {
+            idx = this.findIndexOfId(drink.id)
+        }
+        if (idx == -1) { // new
+            // console.log("saveItem: saved as new", drink);
+            let max = 0;
+            this.itemList.forEach(element => {
+                if (max < element.id) {
+                    max = element.id;
+                }
+            });
+            drink.id = max + 1;
+            this.itemList.push(drink);
+
+        } else { // existing
+            // console.log("saveItem: saved as existing", drink);
+            this.itemList[idx] = drink;
+        }
+        this.applyFilters();
+        this.dispatchEvent("itemsChange", this);
     }
 
     on(event, callback) {
