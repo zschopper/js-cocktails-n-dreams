@@ -1,7 +1,7 @@
 
 # Műveletek listákkal - Webáruház estiseknek
 
-[GitHub Pages Link](https://zschopper.github.io/js-coctails-n-dreams/)
+[GitHub Pages Link](https://zschopper.github.io/js-cocktails-n-dreams/)
 
 Űrlap validációra egy JS kóddal kiegésztett változat: [link](https://github.com/csefikatalin/urlapok_validalasa.git)
 
