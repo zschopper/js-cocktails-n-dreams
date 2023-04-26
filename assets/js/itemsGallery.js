@@ -1,4 +1,4 @@
-
+import { Basket } from "./basket.js";
 export class ItemsGallery {
 
     constructor() {
@@ -44,18 +44,32 @@ export class ItemsGallery {
         let html = '';
         let max = 20;
         for (let item of this.drinkList.filteredItemList) {
+            let ingredients = '<ul>' + item.ingredients.map(e => `<li>${e.ingredient}</li>`).join("") + '</ul>';
             // if (!--max) break;
-            html += `<div class="card" data-id="${item.id}"><div class="card-header">${item.name}</div>` +
-                `  <div class="card-body"><p class="card-text"> <img src="${item.image}" alt="${item.name}"/> </p></div>` +
-                '  <div class="card-footer">' +
-                '    <div class="row">' +
-                // '    <div class="col-6"><span class="align-middle">Ár: 6990 Ft</span></div>' +
-                '    <div class="col-6 text-end"><a href="#"class="btn btn-sm btn-success">Order it</a></div>' +
+            html +=
+                '<div class="card-wrapper">' +
+                `  <div class="card" data-id="${item.id}">` +
+                '    <div class="card-face card-face-front">' +
+                `      <div class="card-header">${item.name}</div>` +
+                `      <div class="card-body"><p class="card-text"> <img src="${item.image}" alt="${item.name}"/> </p></div>` +
+                '      <div class="card-footer">' +
+                '        <div class="row">' +
+                '          <div class="col-6 text-end"><a href="#" class="btn btn-sm btn-success flip"> Flip it!</a> or <a href="#" class="btn btn-sm btn-success order">Order it!</a></div>' +
+                '        </div>' +
+                '      </div>' +
+                '    </div>' +
+                '    <div class="card-face card-face-back">' +
+                `      <div class="card-header">${item.name}</div>` +
+                `      <div class="card-body"><p class="card-text"> Ingredients </p>${ingredients}</div>` +
+                '      <div class="card-footer">' +
+                '        <div class="row">' +
+                '          <div class="col-6 text-end"><a href="#" class="btn btn-sm btn-success flip">Flip back and order it!</a></div>' +
+                '        </div>' +
+                '      </div>' +
+                '    </div>' +
                 '  </div>' +
-                '</div>' +
                 '</div>';
         }
-        console.log("renderItems", html);
 
         let isDown = false;
         let startX;
@@ -63,7 +77,7 @@ export class ItemsGallery {
 
         $(this.container).html(html);
 
-        $(this.container).off("mousedown").on('mousedown', (e) => {
+        $(this.container).on('mousedown', (e) => {
             let container = $(this.container)[0]
             isDown = true;
             $(this.container).addClass('active');
@@ -71,17 +85,17 @@ export class ItemsGallery {
             scrollLeft = container.scrollLeft;
         });
 
-        $(this.container).off("mouseleave").on('mouseleave', () => {
+        $(this.container).on('mouseleave', () => {
             isDown = false;
             $(this.container).removeClass('active');
         });
 
-        $(this.container).off("mouseup").on('mouseup', () => {
+        $(this.container).on('mouseup', () => {
             isDown = false;
             $(this.container).removeClass('active');
         });
 
-        $(this.container).off("mousemove").on('mousemove', (e) => {
+        $(this.container).on('mousemove', (e) => {
             if (isDown) {
                 let container = $(this.container)[0]
                 let x = e.pageX - container.offsetLeft;
@@ -90,9 +104,26 @@ export class ItemsGallery {
                 e.preventDefault();
             }
         });
+
+        $(this.container + " .order").on('click', (e) => {
+            let id = $(e.target).closest("[data-id]").data("id");
+            let item = this.drinkList.findItemById(id);
+            if (item) {
+                Basket.instance.addItem(item, 1);
+            }
+        });
+
+        $(this.container + " .card").on('click', (e) => {
+            // $(e.target).toggle("is-flipped");
+            let card = $(e.target).closest(".card");
+            card.toggleClass("is-flipped");
+
+            console.log("fliporder click", card);
+        });
+
     }
 
-    // scroll into view:
+    // scroll a card into view:
     //$("#gallery-container")[0].scrollLeft = $('div.card[data-id="100"]')[0].offsetLeft
 }
 

@@ -47,7 +47,6 @@ export class Drinks {
         }
     }
 
-
     initFieldDefs() {
         this.fieldDefs = [
             { name: "id", title: "#", displayAs: "number", displayOn: ["card", "table"], sortable: true, filter: "number", },
