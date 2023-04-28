@@ -1,3 +1,5 @@
+import { Notifications } from "./notifications.js";
+
 export class Basket extends Notifications {
 
     constructor() {
