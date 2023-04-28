@@ -23,27 +23,23 @@ export class Drinks {
         };
     }
 
-    // create object from field def list (for quicker access of fields by their name)
 
     get nameFilter() {
         return this._nameFilter;
-
     }
 
     set nameFilter(value) {
-        let delayMS = 2000;
+        let delayMS = 500;
         this._nameFilter = value;
         {
-            let yvalue = this._nameFilter;
-            new Promise(resolve => setTimeout(resolve, delayMS)).then((xvalue = this._nameFilter) => {
-                if (xvalue == yvalue) {
-                    console.log(`Hello! ${xvalue} ${yvalue}`);
-                    console.log("this", this);
-
+            let oldValue = this._nameFilter;
+            new Promise(resolve => setTimeout(resolve, delayMS)).then((newValue = this._nameFilter) => {
+                // console.log(`nameFilter old: ${oldValue} new: ${newValue}`);
+                if (newValue == oldValue) {
+                    // console.log(`nameFilter: filter will be applied`);
                     this.applyFilters();
                 }
             });
-
         }
     }
 
@@ -61,6 +57,8 @@ export class Drinks {
             { name: "noOfIngredients", title: "No. of Ingr.", displayAs: "number", displayOn: ["table"], sortable: true, filter: "", },
         ];
 
+        // Areate object from field def list (for quicker access of fields by their name)
+        this.fieldDefByName = [];
         this.fieldDefs.map((v, k) => { this.fieldDefByName[v.name] = v });
     }
 
@@ -210,6 +208,11 @@ export class Drinks {
             if (this._nameFilter) {
                 let rx = new RegExp(this._nameFilter, "i");
                 if (!item.name.toString().match(rx)) {
+                    found = false;
+                    for (let ing in item.ingredients) {
+                        found = found || ing.toString().match(rx)
+                    }
+
                     return false;
                 }
             }
