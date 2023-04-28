@@ -1,10 +1,12 @@
 "use strict";
 
 import { Drink } from "./drink.js";
+import { Notifications } from "./notifications.js";
 
-export class Drinks {
+export class Drinks extends Notifications{
 
     constructor(dataFileName) {
+        super();
         this._newId = 0;
         this.dataFileName = dataFileName;
         this.itemList = [];
@@ -15,14 +17,13 @@ export class Drinks {
         this.filters = [];
         this.fieldDefByName = {};
         this.initFieldDefs();
-        this.eventHandlers = {
-            "itemsChange": [],
-            "filteredItemsChange": [],
-            "filtersChange": [],
-            "itemsOrderChange": [],
-        };
+        this.addEventHandlers([
+            "itemsChange",
+            "filteredItemsChange",
+            "filtersChange",
+            "itemsOrderChange"
+        ]);
     }
-
 
     get nameFilter() {
         return this._nameFilter;
@@ -208,7 +209,7 @@ export class Drinks {
             if (this._nameFilter) {
                 let rx = new RegExp(this._nameFilter, "i");
                 if (!item.name.toString().match(rx)) {
-                    found = false;
+                    let found = false;
                     for (let ing in item.ingredients) {
                         found = found || ing.toString().match(rx)
                     }
@@ -289,37 +290,6 @@ export class Drinks {
         }
         this.applyFilters();
         this.dispatchEvent("itemsChange", this);
-    }
-
-    on(event, callback) {
-        if (Object.keys(this.eventHandlers).includes(event)) {
-            this.eventHandlers[event].push(callback);
-        } else {
-            console.warn("Unknown event: ", event);
-        }
-        return this;
-    }
-
-    off(event, callback) {
-        if (Object.keys(this.eventHandlers).includes(event)) {
-            this.eventHandlers[event] = this.eventHandlers[event].filter(item => item != callback);
-        } else {
-            console.warn("Unknown event: ", event);
-        }
-        return this;
-    }
-
-    dispatchEvent(event, args) {
-        console.log("Drinks.dispatchEvent", event);
-
-        if (Object.keys(this.eventHandlers).includes(event)) {
-            for (let callback of this.eventHandlers[event]) {
-                callback(args);
-            }
-        } else {
-            console.warn("Unknown event: ", event);
-        }
-        return this;
     }
 
     get newId() {

@@ -5,10 +5,11 @@ import { ItemsGallery } from "./itemsGallery.js";
 import { Drinks } from "./drinks.js";
 import { FilterUI } from "./filterUI.js";
 import { EditUI } from "./editUI.js";
+import { Basket } from "./basket.js";
 
 $(function () {
     console.log("Right, let's go adventuring!");
-    let in_admin_mode = window.location.pathname.split("/").pop()  == "admin.html";
+    let in_admin_mode = window.location.pathname.split("/").pop() == "admin.html";
     let drinkList = new Drinks('assets/data/all_drinks.json')
         .loadItems();
 
@@ -33,9 +34,15 @@ $(function () {
             .setList(drinkList)
             .renderItems();
 
+        Basket.instance
+            .setContainer("#drinksModal")
+            .setList(drinkList)
+            .load();
+
+        // quick (delayed) name filter on text box
         $("#filter-by-name").on("input", event => {
             let value = $("#filter-by-name").val()
-            console.log("input!", value);
+            // console.log("input!", value);
             drinkList.nameFilter = value;
         })
     }

@@ -1,7 +1,15 @@
 export class Drink {
 
     constructor(values = undefined) {
-        this.id = this.name = this.alcoholic = this.category = this.image = this.glass = this.iba = this.instructions = this.video = undefined;
+        this.id = undefined;
+        this.name = undefined;
+        this.alcoholic = undefined;
+        this.category = undefined;
+        this.image = undefined;
+        this.glass = undefined;
+        this.iba = undefined;
+        this.instructions = undefined;
+        this.video = undefined;
         this.ingredients = [];
         if (values !== undefined) {
             for (const prop in this) {
