@@ -8,8 +8,7 @@ import { EditUI } from "./editUI.js";
 
 $(function () {
     console.log("Right, let's go adventuring!");
-    let in_admin_mode = window.location.pathname.split("/").pop();
-
+    let in_admin_mode = window.location.pathname.split("/").pop()  == "admin.html";
     let drinkList = new Drinks('assets/data/all_drinks.json')
         .loadItems();
 
