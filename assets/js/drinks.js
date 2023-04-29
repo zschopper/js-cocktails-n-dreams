@@ -50,6 +50,7 @@ export class Drinks extends Notifications{
             { name: "name", title: "Name", displayAs: "text", displayOn: ["card", "table"], sortable: true, filter: "text", },
             { name: "category", title: "Category", displayAs: "text", displayOn: ["card", "table"], sortable: true, filter: "list", },
             { name: "alcoholic", title: "Alcoholic", displayAs: "text", displayOn: ["card", "table"], sortable: true, filter: "list", },
+            { name: "price", title: "Price", displayAs: "number", displayOn: ["card", "table"], sortable: true, filter: "", },
             { name: "image", title: "Image", displayAs: "image", displayOn: ["card"], sortable: false, filter: "", },
             { name: "glass", title: "Glass", displayAs: "text", displayOn: ["card", "table"], sortable: true, filter: "list", },
             { name: "iba", title: "Intl. Bartenders Assoc.", displayAs: "text", displayOn: ["card", "table"], sortable: true, filter: "list", },
@@ -84,8 +85,9 @@ export class Drinks extends Notifications{
                     let values = {
                         id: item.no,
                         name: item.strDrink,
-                        alcoholic: item.strAlcoholic,
                         category: item.strCategory,
+                        alcoholic: item.strAlcoholic,
+                        price: item.fakePrice,
                         image: item.strDrinkThumb,
                         glass: item.strGlass,
                         iba: item.strIBA ? item.strIBA : "Not Classified",

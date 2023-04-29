@@ -9,6 +9,7 @@ export class Drink {
         this.category = undefined;
         this.image = undefined;
         this.glass = undefined;
+        this.price = undefined;
         this.iba = undefined;
         this.instructions = undefined;
         this.video = undefined;

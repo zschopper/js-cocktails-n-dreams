@@ -15,6 +15,7 @@ export class Basket extends Notifications {
         this.drinkList = null;
         this.container = "";
         this.items = [];
+        this._total = 0;
     }
 
     static get instance() {
@@ -36,6 +37,7 @@ export class Basket extends Notifications {
 
     save() {
         let simpleBasket = {};
+        this.recalcTotal();
         this.items.map(elem => simpleBasket[elem.drink.id] = elem.amount);
         let basketStr = JSON.stringify(simpleBasket);
         console.log("Basket.save() basketStr", basketStr);
@@ -57,6 +59,7 @@ export class Basket extends Notifications {
                 let amount = savedList[drinkId];
                 this.items.push({ drink: item, amount: amount });
             }
+            this.recalcTotal();
             console.log("Basket.load() basket", this.items);
             this.dispatchEvent("basketChange", this);
         }
@@ -88,6 +91,18 @@ export class Basket extends Notifications {
                 }
             }
             this.save();
+        }
+        return this;
+    }
+
+    get total() {
+        return this._total;
+    }
+
+    recalcTotal() {
+        this._total = 0;
+        for (let item of this.items) {
+            this._total += item.drink.price * item.amount;
         }
         return this;
     }

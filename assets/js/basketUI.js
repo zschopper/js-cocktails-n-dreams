@@ -66,7 +66,7 @@ export class BasketUI {
                 '    </div>' +
                 `    <div class="col-7"><span class="name">${item.drink.name} x${item.amount}</span></div>` +
                 '    <div class="col-3">' +
-                `      <div class="price">${0.0}</div>
+                `      <div class="price">${item.drink.price * item.amount}</div>
 
                 <a class="add-one" href="#">+1</a>
                 <a class="remove-one" href="#">-1</a>
@@ -77,6 +77,7 @@ export class BasketUI {
         }
 
         $(this.checkoutContainer).html(html);
+        $("#basket-modal .card-footer").html("Total: $" + this.basket.total);
         $(this.checkoutContainer + " a.add-one").on("click", event => this.changeAmtClick(event, 1));
         $(this.checkoutContainer + " a.remove-one").on("click", event => this.changeAmtClick(event, -1));
         $(this.checkoutContainer + " a.remove-all").on("click", event => this.changeAmtClick(event, -1000));
