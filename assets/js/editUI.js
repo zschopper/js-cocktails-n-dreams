@@ -1,3 +1,5 @@
+"use strict";
+
 import { Drink } from "./drink.js";
 
 export class EditUI {

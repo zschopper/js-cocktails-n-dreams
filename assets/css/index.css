@@ -124,16 +124,11 @@
   text-align: center;
 }
 
-.filter-hourglass {
-  content: "pls wait"
-}
-
-
 #basket-modal img {
   width: 100%;
 }
 
-#basket-modal .remove-item {
+#basket-modal .remove-all {
   display: block;
   text-align: right;
   color: grey;

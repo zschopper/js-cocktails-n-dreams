@@ -259,8 +259,6 @@ export class Drinks extends Notifications{
 
     findItemById(id) {
         let idx = this.findIndexOfId(id)
-        console.log("findItemById", id, idx, this.itemList[idx]);
-
         if (idx == -1)
             return null
         return this.itemList[idx];

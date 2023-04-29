@@ -1,3 +1,5 @@
+"use strict";
+
 import { Basket } from "./basket.js";
 export class ItemsGallery {
 

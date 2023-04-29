@@ -6,6 +6,7 @@ import { Drinks } from "./drinks.js";
 import { FilterUI } from "./filterUI.js";
 import { EditUI } from "./editUI.js";
 import { Basket } from "./basket.js";
+import { BasketUI } from "./basketUI.js";
 
 $(function () {
     console.log("Right, let's go adventuring!");
@@ -36,8 +37,14 @@ $(function () {
 
         Basket.instance
             .setContainer("#drinksModal")
-            .setList(drinkList)
-            .load();
+            .setList(drinkList);
+
+        BasketUI.instance
+            .setBasketBadgeContainer("#basket-badge")
+            .setCheckoutContainer("#basket-checkout-container")
+            .setBasket(Basket.instance);
+
+        Basket.instance.load();
 
         // quick (delayed) name filter on text box
         $("#filter-by-name").on("input", event => {

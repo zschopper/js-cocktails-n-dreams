@@ -1,3 +1,5 @@
+"use strict";
+
 export class FilterUI { // singleton class
 
     constructor() {

@@ -1,3 +1,5 @@
+"use strict";
+
 import { Notifications } from "./notifications.js";
 
 export class Basket extends Notifications {
@@ -43,7 +45,6 @@ export class Basket extends Notifications {
     }
 
     load() {
-        // return this;
         let basketStr = localStorage.getItem("basket");
         if (basketStr) {
             this.items = [];
@@ -86,8 +87,7 @@ export class Basket extends Notifications {
                     this.items.splice(idx, 1);
                 }
             }
-        } else {
-            this.items.push({ drink: item, amount: amount });
+            this.save();
         }
         return this;
     }
