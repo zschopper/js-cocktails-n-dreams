@@ -212,11 +212,13 @@ export class Drinks extends Notifications{
                 let rx = new RegExp(this._nameFilter, "i");
                 if (!item.name.toString().match(rx)) {
                     let found = false;
-                    for (let ing in item.ingredients) {
-                        found = found || ing.toString().match(rx)
+                    for (let ingr of item.ingredients) {
+                        console.log("ingr", ingr.ingredient );
+
+                        found = found || ingr.ingredient.toString().match(rx)
                     }
 
-                    return false;
+                    return found;
                 }
             }
 
