@@ -51,7 +51,7 @@ export class ItemsGallery {
         } else {
             for (let item of this.drinkList.filteredItemList) {
                 let ingredients = '<ul>' + item.ingredients.map(e => `<li>${e.ingredient}</li>`).join("") + '</ul>';
-                 // if (!--max) break;
+                // if (!--max) break;
                 html +=
                     '<div class="card-wrapper">' +
                     `  <div class="card" data-id="${item.id}">` +
@@ -77,39 +77,56 @@ export class ItemsGallery {
                     '</div>';
             }
 
+            $(this.container).html(html);
+
             let isDown = false;
             let startX;
             let scrollLeft;
+            let container = $(this.container)[0];
 
-            $(this.container).html(html);
-
-            $(this.container).on('mousedown', (e) => {
-                let container = $(this.container)[0]
+            function scrollStart(e) {
                 isDown = true;
-                $(this.container).addClass('active');
-                startX = e.pageX - container.offsetLeft;
+
+                const touches = e.changedTouches;
+                let pageX = 0;
+                if (touches && touches.length == 1) {
+                    pageX = touches[0].pageX;
+                } else {
+                    pageX = e.pageX;
+                }
+
+                $(container).addClass('active');
+                startX = pageX - container.offsetLeft;
                 scrollLeft = container.scrollLeft;
-            });
+            }
 
-            $(this.container).on('mouseleave', () => {
-                isDown = false;
-                $(this.container).removeClass('active');
-            });
-
-            $(this.container).on('mouseup', () => {
-                isDown = false;
-                $(this.container).removeClass('active');
-            });
-
-            $(this.container).on('mousemove', (e) => {
+            function scroll(e) {
                 if (isDown) {
-                    let container = $(this.container)[0]
-                    let x = e.pageX - container.offsetLeft;
+
+                    const touches = e.changedTouches;
+                    let pageX = 0;
+                    if (touches && touches.length == 1) {
+                        pageX = touches[0].pageX;
+                    } else {
+                        pageX = e.pageX;
+                    }
+
+
+                    let x = pageX - container.offsetLeft;
                     let walk = (x - startX) * 3;
                     container.scrollLeft = scrollLeft - walk;
                     e.preventDefault();
                 }
-            });
+            }
+
+            function scrollEnd(e) {
+                isDown = false;
+                $(container).removeClass('active');
+            }
+
+            $(this.container).on('mousedown touchstart', scrollStart);
+            $(this.container).on('touchmove mousemove', scroll);
+            $(this.container).on('mouseleave mouseup touchend', scrollEnd);
 
             $(this.container + " .order").on('click', (e) => {
                 let id = $(e.target).closest("[data-id]").data("id");
