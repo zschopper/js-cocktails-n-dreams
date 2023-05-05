@@ -213,7 +213,7 @@ export class Drinks extends Notifications{
                 if (!item.name.toString().match(rx)) {
                     let found = false;
                     for (let ingr of item.ingredients) {
-                        console.log("ingr", ingr.ingredient );
+                        // console.log("ingr", ingr.ingredient );
 
                         found = found || ingr.ingredient.toString().match(rx)
                     }

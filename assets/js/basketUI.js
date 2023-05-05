@@ -51,7 +51,7 @@ export class BasketUI {
     }
 
     updateBadge() {
-
+        $("#basket-counter").text(this.recalcBasketSize())
     }
 
     updateBasketDialog() {
@@ -81,6 +81,13 @@ export class BasketUI {
         $(this.checkoutContainer + " a.add-one").on("click", event => this.changeAmtClick(event, 1));
         $(this.checkoutContainer + " a.remove-one").on("click", event => this.changeAmtClick(event, -1));
         $(this.checkoutContainer + " a.remove-all").on("click", event => this.changeAmtClick(event, -1000));
+    }
+
+    recalcBasketSize() {
+        let total = 0;
+        for (let item of this.basket.items)
+            total += item.amount;
+        return total;
     }
 
     changeAmtClick(event, amount) {

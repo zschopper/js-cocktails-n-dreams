@@ -40,7 +40,7 @@ export class Basket extends Notifications {
         this.recalcTotal();
         this.items.map(elem => simpleBasket[elem.drink.id] = elem.amount);
         let basketStr = JSON.stringify(simpleBasket);
-        console.log("Basket.save() basketStr", basketStr);
+        // console.log("Basket.save() basketStr", basketStr);
         localStorage.setItem("basket", basketStr);
         this.dispatchEvent("basketChange", this);
         return this;
@@ -50,17 +50,17 @@ export class Basket extends Notifications {
         let basketStr = localStorage.getItem("basket");
         if (basketStr) {
             this.items = [];
-            console.log("Basket.load() basketStr", basketStr, this.drinkList);
+            // console.log("Basket.load() basketStr", basketStr, this.drinkList);
             let savedList = JSON.parse(basketStr);
             for (let drinkId in savedList) {
                 let item = this.drinkList.findItemById(drinkId);
-                console.log(item);
+                // console.log(item);
 
                 let amount = savedList[drinkId];
                 this.items.push({ drink: item, amount: amount });
             }
             this.recalcTotal();
-            console.log("Basket.load() basket", this.items);
+            // console.log("Basket.load() basket", this.items);
             this.dispatchEvent("basketChange", this);
         }
         return this;
