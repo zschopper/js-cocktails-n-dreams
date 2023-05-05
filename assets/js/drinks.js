@@ -64,7 +64,7 @@ export class Drinks extends Notifications{
         this.fieldDefs.map((v, k) => { this.fieldDefByName[v.name] = v });
     }
 
-    loadItems() {
+    loadItems(signature = true) {
         this.itemList = [];
 
         $.ajax({
@@ -82,6 +82,8 @@ export class Drinks extends Notifications{
                 };
 
                 for (let item of data) {
+                    if (signature && !item.signature)
+                        continue;
                     let values = {
                         id: item.no,
                         name: item.strDrink,
