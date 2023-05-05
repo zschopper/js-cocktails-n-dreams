@@ -71,6 +71,7 @@ export class EditUI {
         $("#form-field-name").val(item.name);
         $(`#form-field-category option[value="${item.category}"]`).prop("selected", true);
         $(`#form-field-alcoholic option[value="${item.alcoholic}"]`).prop("selected", true);
+        $("#form-field-price").val(item.price);
         $(`#form-field-glass option[value="${item.glass}"]`).prop("selected", true);
         $(`#form-field-iba option[value="${item.iba}"]`).prop("selected", true);
         $("#form-field-instructions").val(item.instructions);
@@ -103,6 +104,7 @@ export class EditUI {
             name: $("#form-field-name").val(),
             category: $(`#form-field-category`).val(),
             alcoholic: $(`#form-field-alcoholic`).val(),
+            price: $(`#form-field-price`).val(),
             glass: $(`#form-field-glass`).val(),
             iba: $(`#form-field-iba`).val(),
             instructions: $("#form-field-instructions").val(),
