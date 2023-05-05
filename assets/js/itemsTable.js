@@ -1,9 +1,9 @@
 "use strict";
 
-import { EditUI } from "./editUI.js";
-import { Drink } from "./drink.js";
+import EditUI from "./editUI.js";
+import Drink from "./drink.js";
 
-export class ItemsTable {
+class ItemsTable {
 
     constructor() {
         if (ItemsTable._instance) {
@@ -150,3 +150,5 @@ function sortColumnClick(event) {
 
     ItemsTable.instance.drinkList.sortItems(target.attr("data-key"), target.attr("aria-sort") === "ascending");
 }
+
+export default ItemsTable;

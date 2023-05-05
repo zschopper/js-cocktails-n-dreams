@@ -1,9 +1,9 @@
 "use strict";
 
-import { Drink } from "./drink.js";
-import { Notifications } from "./notifications.js";
+import Drink from "./drink.js";
+import Notifications from "./notifications.js";
 
-export class Drinks extends Notifications{
+class Drinks extends Notifications{
 
     constructor(dataFileName) {
         super();
@@ -302,3 +302,5 @@ export class Drinks extends Notifications{
     }
 
 }
+
+export default Drinks;

@@ -1,7 +1,7 @@
 "use strict";
 
-import { Basket } from "./basket.js";
-export class ItemsGallery {
+import Basket from "./basket.js";
+class ItemsGallery {
 
     constructor() {
         if (ItemsGallery._instance) {
@@ -149,3 +149,5 @@ export class ItemsGallery {
 }
 
 ItemsGallery._instance = null;
+
+export default ItemsGallery;

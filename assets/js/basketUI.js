@@ -1,8 +1,8 @@
 "use strict";
 
-import { Basket } from "./basket.js";
+import Basket from "./basket.js";
 
-export class BasketUI {
+class BasketUI {
 
     constructor() {
         if (BasketUI._instance) {
@@ -105,3 +105,5 @@ export class BasketUI {
 }
 
 BasketUI._instance = null;
+
+export default BasketUI;

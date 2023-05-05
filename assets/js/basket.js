@@ -1,8 +1,8 @@
 "use strict";
 
-import { Notifications } from "./notifications.js";
+import Notifications from "./notifications.js";
 
-export class Basket extends Notifications {
+class Basket extends Notifications {
 
     constructor() {
         if (Basket._instance) {
@@ -109,3 +109,5 @@ export class Basket extends Notifications {
 }
 
 Basket._instance = null;
+
+export default Basket;

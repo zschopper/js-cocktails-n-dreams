@@ -1,8 +1,8 @@
 "use strict";
 
-import { Drink } from "./drink.js";
+import Drink from "./drink.js";
 
-export class EditUI {
+class EditUI {
 
     constructor() {
         if (EditUI._instance) {
@@ -136,3 +136,5 @@ export class EditUI {
 }
 
 EditUI._instance = null;
+
+export default EditUI;

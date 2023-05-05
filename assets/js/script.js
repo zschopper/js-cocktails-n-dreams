@@ -1,12 +1,12 @@
 "use strict";
 
-import { ItemsTable } from "./itemsTable.js";
-import { ItemsGallery } from "./itemsGallery.js";
-import { Drinks } from "./drinks.js";
-import { FilterUI } from "./filterUI.js";
-import { EditUI } from "./editUI.js";
-import { Basket } from "./basket.js";
-import { BasketUI } from "./basketUI.js";
+import ItemsTable from "./itemsTable.js";
+import ItemsGallery from "./itemsGallery.js";
+import Drinks from "./drinks.js";
+import FilterUI from "./filterUI.js";
+import EditUI from "./editUI.js";
+import Basket from "./basket.js";
+import BasketUI from "./basketUI.js";
 
 $(function () {
     console.log("Right, let's go adventuring!");

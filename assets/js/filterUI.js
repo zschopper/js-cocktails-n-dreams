@@ -1,6 +1,6 @@
 "use strict";
 
-export class FilterUI { // singleton class
+class FilterUI { // singleton class
 
     constructor() {
         if (FilterUI._instance) {
@@ -77,3 +77,5 @@ export class FilterUI { // singleton class
 }
 
 FilterUI._instance = null;
+
+export default FilterUI;

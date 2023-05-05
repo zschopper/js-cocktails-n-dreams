@@ -1,6 +1,6 @@
 "use strict";
 
-export class Notifications {
+class Notifications {
     constructor(){
         this.eventHandlers = {};
     }
@@ -47,5 +47,6 @@ export class Notifications {
         return this;
     }
 
-
 }
+
+export default Notifications;

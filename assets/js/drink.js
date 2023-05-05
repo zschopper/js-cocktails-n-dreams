@@ -1,6 +1,6 @@
 "use strict";
 
-export class Drink {
+class Drink {
 
     constructor(values = undefined) {
         this.id = undefined;
@@ -33,3 +33,5 @@ export class Drink {
         return this.ingredients.includes(what);
     }
 }
+
+export default Drink;
