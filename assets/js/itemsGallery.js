@@ -57,7 +57,7 @@ export class ItemsGallery {
                     `  <div class="card" data-id="${item.id}">` +
                     '    <div class="card-face card-face-front">' +
                     `      <div class="card-header">${item.name}</div>` +
-                    `      <div class="card-body"><p class="card-text"> <img src="${item.image}" alt="${item.name}"/> </p></div>` +
+                    `      <div class="card-body"><p class="card-text"> <img src="${item.image}" alt="${item.name}" loading="lazy"/> </p></div>` +
                     '      <div class="card-footer">' +
                     '        <div class="row">' +
                     '          <div class="col-6 text-end"><a href="#" class="btn btn-sm btn-success flip"> Flip it!</a> or <a href="#" class="btn btn-sm btn-success order">Order it!</a></div>' +
