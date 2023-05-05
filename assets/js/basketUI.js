@@ -52,6 +52,7 @@ class BasketUI {
 
     updateBadge() {
         $("#basket-counter").text(this.recalcBasketSize())
+
     }
 
     updateBasketDialog() {
