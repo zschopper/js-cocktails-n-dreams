@@ -138,3 +138,38 @@ main {
 #basket-modal .price {
   text-align: right;
 }
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  .dummy{
+    --dummy: 576px;
+  }
+ }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .dummy{
+    --dummy: 768px;
+  }
+ }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .dummy{
+    --dummy: 992px;
+  }
+ }
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .dummy{
+    --dummy: 1200px;
+  }
+ }
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+  .dummy{
+    --dummy: 1400px;
+  }
+ }
