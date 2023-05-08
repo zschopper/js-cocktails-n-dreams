@@ -9,6 +9,26 @@ main {
   background: #ffffff80;
 }
 
+.navbar-brand {
+  width: 120px;
+  max-height: 30px;
+}
+
+.navbar-brand a {
+  height: 90px;
+  width: 90px;
+  overflow-y: visible;
+  display: block;
+  margin-top: -20px;
+}
+
+.navbar-brand a img {
+  width: 100%;
+  padding: 2px;
+  border-radius: 50%;
+  background: #212529;
+}
+
 #gallery-container {
   padding: 50px 0;
   position: relative;
@@ -156,35 +176,35 @@ footer a:hover {
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
-  .dummy{
+  .dummy {
     --dummy: 576px;
   }
- }
+}
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-  .dummy{
+  .dummy {
     --dummy: 768px;
   }
- }
+}
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-  .dummy{
+  .dummy {
     --dummy: 992px;
   }
- }
+}
 
 /* X-Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  .dummy{
+  .dummy {
     --dummy: 1200px;
   }
- }
+}
 
 /* XX-Large devices (larger desktops, 1400px and up) */
 @media (min-width: 1400px) {
-  .dummy{
+  .dummy {
     --dummy: 1400px;
   }
- }
+}
