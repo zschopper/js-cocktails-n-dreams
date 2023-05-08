@@ -171,6 +171,15 @@ footer {
   background: #ffffff99;
   text-align: center;
   border-top: 2px solid whitesmoke;
+  text-shadow:
+    -1px -1px 0px var(--text-shadow-color),
+     0px -1px 0px var(--text-shadow-color),
+     1px -1px 0px var(--text-shadow-color),
+    -1px  0px 0px var(--text-shadow-color),
+     1px  0px 0px var(--text-shadow-color),
+    -1px  1px 0px var(--text-shadow-color),
+     0px  1px 0px var(--text-shadow-color),
+     1px  1px 0px var(--text-shadow-color);
 }
 
 footer a {
