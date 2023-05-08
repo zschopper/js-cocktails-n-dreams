@@ -16,7 +16,6 @@ class Basket {
         this.basketChangeEvent = new CustomEvent("basketChange", { detail: { this: this } });
 
         document.addEventListener("visibilitychange", (event) => {
-            console.log(event.target.hidden);
             if (!event.target.hidden)
                 this.load();
         });
