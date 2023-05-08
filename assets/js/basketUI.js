@@ -69,9 +69,9 @@ class BasketUI {
                 '    <div class="col-3">' +
                 `      <div class="price">${item.drink.price * item.amount}</div>
 
-                <a class="btn btn-xs btn-primary add-one" href="#">+1</a>
-                <span class="quantity">x${item.amount}</span>
                 <a class="btn btn-xs btn-secondary remove-one" href="#">-1</a>
+                <span class="quantity"> x${item.amount} </span>
+                <a class="btn btn-xs btn-primary add-one" href="#">+1</a>
                 <a class="remove-all" href="#">Remove</a>` +
                 '    </div>' +
                 '  </div>' +
