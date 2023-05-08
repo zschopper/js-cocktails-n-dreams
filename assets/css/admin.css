@@ -28,6 +28,10 @@
     cursor: pointer;
   }
 
+  table {
+    table-layout: fixed;
+  }
+
   table thead > tr > th[data-sortable] {
     cursor: pointer;
     padding-right: 30px;
