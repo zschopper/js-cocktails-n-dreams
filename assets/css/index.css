@@ -29,6 +29,13 @@ main {
   background: #212529;
 }
 
+.btn-xs {
+  --bs-btn-padding-y: 0.1rem;
+  --bs-btn-padding-x: 0.25rem;
+  --bs-btn-font-size: 0.875rem;
+  --bs-btn-border-radius: 0.35rem;
+}
+
 #gallery-container {
   padding: 50px 0;
   position: relative;
