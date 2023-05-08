@@ -1,21 +1,19 @@
 "use strict";
 
-import Notifications from "./notifications.js";
-
-class Basket extends Notifications {
+class Basket {
 
     constructor() {
         if (Basket._instance) {
             console.warn("Already created");
             return Basket._instance;
         }
-        super();
-        this.addEventHandler("basketChange");
         Basket._instance = this;
         this.drinkList = null;
         this.container = "";
         this.items = [];
         this._total = 0;
+
+        this.basketChangeEvent = new CustomEvent("basketChange", { detail: { this: this } });
     }
 
     static get instance() {
@@ -42,7 +40,7 @@ class Basket extends Notifications {
         let basketStr = JSON.stringify(simpleBasket);
         // console.log("Basket.save() basketStr", basketStr);
         localStorage.setItem("basket", basketStr);
-        this.dispatchEvent("basketChange", this);
+        window.dispatchEvent(this.basketChangeEvent);
         return this;
     }
 
@@ -61,7 +59,7 @@ class Basket extends Notifications {
             }
             this.recalcTotal();
             // console.log("Basket.load() basket", this.items);
-            this.dispatchEvent("basketChange", this);
+            window.dispatchEvent(this.basketChangeEvent);
         }
         return this;
     }

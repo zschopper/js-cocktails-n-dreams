@@ -27,8 +27,8 @@ class ItemsGallery {
 
     setList(drinkList) {
         this.drinkList = drinkList;
-        this.drinkList.on("itemsChange", (event) => { this.itemsChangeCallback() });
-        this.drinkList.on("itemsOrderChange", (event) => { this.itemsOrderChangeCallback() });
+        $(window).on("itemsChange", (event) => { this.itemsChangeCallback() });
+        $(window).on("itemsOrderChange", (event) => { this.itemsOrderChangeCallback() });
         return this;
     }
 

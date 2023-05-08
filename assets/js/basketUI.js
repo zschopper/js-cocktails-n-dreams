@@ -35,7 +35,7 @@ class BasketUI {
 
     setBasket(basket) {
         this.basket = basket;
-        this.basket.on("basketChange", (event) => { this.basketChangeCallback() });
+        $(window).on("basketChange", (event) => { this.basketChangeCallback() });
         return this;
     }
 

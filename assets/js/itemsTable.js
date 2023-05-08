@@ -13,6 +13,8 @@ class ItemsTable {
         ItemsTable._instance = this;
         this.drinkList = null;
         this.container = "";
+
+
     }
 
     static get instance() {
@@ -29,9 +31,8 @@ class ItemsTable {
 
     setList(drinkList) {
         this.drinkList = drinkList;
-        this.drinkList.on("itemsChange", (event) => { this.itemsChangeCallback() });
-        this.drinkList.on("itemsOrderChange", (event) => { this.itemsOrderChangeCallback() });
-
+        $(window).on("itemsChange", (event) => { this.itemsChangeCallback() });
+        $(window).on("itemsOrderChange", (event) => { this.itemsOrderChangeCallback() });
         return this;
     }
 
@@ -121,7 +122,7 @@ class ItemsTable {
 
 ItemsTable._instance = null;
 
-//refactor these function into the class
+// TODO: refactor these function into the class
 
 function deleteClick(event) {
     let idx = $(event.target).closest("*[data-id]").attr("data-id");

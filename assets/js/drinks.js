@@ -1,12 +1,10 @@
 "use strict";
 
 import Drink from "./drink.js";
-import Notifications from "./notifications.js";
 
-class Drinks extends Notifications{
+class Drinks {
 
     constructor(dataFileName) {
-        super();
         this._newId = 0;
         this.dataFileName = dataFileName;
         this.itemList = [];
@@ -17,12 +15,11 @@ class Drinks extends Notifications{
         this.filters = [];
         this.fieldDefByName = {};
         this.initFieldDefs();
-        this.addEventHandlers([
-            "itemsChange",
-            "filteredItemsChange",
-            "filtersChange",
-            "itemsOrderChange"
-        ]);
+
+        this.itemsChangeEvent = new CustomEvent("itemsChange", { detail: { this: this } });
+        this.filteredItemsChangeEvent = new CustomEvent("filteredItemsChange", { detail: { this: this } });
+        this.filtersChangeEvent = new CustomEvent("filtersChange", { detail: { this: this } });
+        this.itemsOrderChangeEvent = new CustomEvent("itemsOrderChange", { detail: { this: this } });
     }
 
     get nameFilter() {
@@ -129,7 +126,7 @@ class Drinks extends Notifications{
                 }
 
                 this.applyFilters();
-                this.dispatchEvent("itemsChange", this);
+                window.dispatchEvent(this.itemsChangeEvent);
 
             }.bind(this),
             fail: function () {
@@ -157,8 +154,8 @@ class Drinks extends Notifications{
                     return 1;
             }
         });
-        this.dispatchEvent("itemsChange", this);
-        this.dispatchEvent("itemsOrderChange", this);
+        window.dispatchEvent(this.itemsChangeEvent);
+        window.dispatchEvent(this.itemsOrderChangeEvent);
     }
 
     addFilter(field, value, suppress = false) {
@@ -246,8 +243,8 @@ class Drinks extends Notifications{
         });
         // console.log("applyFilters", this.filters, this.filteredItemList);
 
-        this.dispatchEvent("filtersChange", this);
-        this.dispatchEvent("itemsChange", this);
+        window.dispatchEvent(this.filtersChangeEvent);
+        window.dispatchEvent(this.itemsChangeEvent);
         return this;
     }
 
@@ -274,8 +271,8 @@ class Drinks extends Notifications{
         let idx = this.findIndexOfId(id)
         this.itemList.splice(idx, 1);
         this.applyFilters();
-        this.dispatchEvent("itemsChange", this);
-        this.dispatchEvent("filteredItemsChange", this);
+        window.dispatchEvent(this.itemsChangeEvent);
+        window.dispatchEvent(this.filteredItemsChangeEvent);
     }
 
     saveItem(drink) {
@@ -293,7 +290,7 @@ class Drinks extends Notifications{
             this.itemList[idx] = drink;
         }
         this.applyFilters();
-        this.dispatchEvent("itemsChange", this);
+        window.dispatchEvent(this.itemsChangeEvent);
     }
 
     get newId() {
