@@ -33,9 +33,8 @@
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
             <div class="container">
                 <div class="navbar-brand">
-                    <a href="#"><img src="./assets/img/logo.webp"/></a>
+                    <a href="#"><img src="./assets/img/logo.webp" alt="Coctails'n'Dreams Logo"></a>
                 </div>
-
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -54,7 +53,7 @@
         </nav>
     </header>
     <main>
-         <div class="container-lg container-xl container-xxl container-fluid mt-5">
+        <div class="container-lg container-xl container-xxl container-fluid mt-5">
             <div class="row">
                 <div class="col-md-12">
                     <h1>Admin</h1>
@@ -69,74 +68,94 @@
             </div>
             <div class="row">
                 <div class="col-12" id="filter-badge-container"></div>
-                <div class="col-xxl-4 col-xl-12" id="filter-container">
-                    <input type="text" id="filter-name" name="name" data-field-name="name"
-                        data-field-display-name="Name" class="d-xxl-block d-xl-inline filter-field" placeholder="Name">
-                    <select name="category" data-field-name="category" data-field-display-name="Category"
-                        class="d-xxl-block d-xl-inline filter-field" id="filter-category" placeholder="Category">
-                        <option value="">&lt;Category&gt;</option>
-                        <option value="Beer">Beer</option>
-                        <option value="Cocktail">Cocktail</option>
-                        <option value="Cocoa">Cocoa</option>
-                        <option value="Coffee / Tea">Coffee / Tea</option>
-                        <option value="Homemade Liqueur">Homemade Liqueur</option>
-                        <option value="Milk / Float / Shake">Milk / Float / Shake</option>
-                        <option value="Ordinary Drink">Ordinary Drink</option>
-                        <option value="Other/Unknown">Other/Unknown</option>
-                        <option value="Punch / Party Drink">Punch / Party Drink</option>
-                        <option value="Shot">Shot</option>
-                        <option value="Soft Drink / Soda">Soft Drink / Soda</option>
-                    </select>
-                    <select name="alcoholic" data-field-name="alcoholic" data-field-display-name="Alcoholic"
-                        class="d-xxl-block d-xl-inline filter-field" id="filter-alcoholic" placeholder="Alcoholic">
-                        <option value="">&lt;Alcoholic&gt;</option>
-                        <option value="Alcoholic">Alcoholic</option>
-                        <option value="Non alcoholic">Non alcoholic</option>
-                        <option value="Optional alcohol">Optional alcohol</option>
-                    </select>
-                    <select name="glass" data-field-name="glass" data-field-display-name="Glass"
-                        class="d-xxl-block d-xl-inline filter-field" id="filter-glass" placeholder="Glass">
-                        <option value="">&lt;Glass&gt;</option>
-                        <option value="Beer glass">Beer glass</option>
-                        <option value="Beer mug">Beer mug</option>
-                        <option value="Beer pilsner">Beer pilsner</option>
-                        <option value="Brandy snifter">Brandy snifter</option>
-                        <option value="Champagne flute">Champagne flute</option>
-                        <option value="Cocktail glass">Cocktail glass</option>
-                        <option value="Coffee mug">Coffee mug</option>
-                        <option value="Collins glass">Collins glass</option>
-                        <option value="Copper mug">Copper mug</option>
-                        <option value="Cordial glass">Cordial glass</option>
-                        <option value="Highball glass">Highball glass</option>
-                        <option value="Hurricane glass">Hurricane glass</option>
-                        <option value="Irish coffee cup">Irish coffee cup</option>
-                        <option value="Jar">Jar</option>
-                        <option value="Margarita glass">Margarita glass</option>
-                        <option value="Margarita/Coupette glass">Margarita/Coupette glass</option>
-                        <option value="Martini glass">Martini glass</option>
-                        <option value="Mason jar">Mason jar</option>
-                        <option value="Old-Fashioned glass">Old-Fashioned glass</option>
-                        <option value="Old-fashioned glass">Old-fashioned glass</option>
-                        <option value="Parfait glass">Parfait glass</option>
-                        <option value="Pint glass">Pint glass</option>
-                        <option value="Pitcher">Pitcher</option>
-                        <option value="Pousse cafe glass">Pousse cafe glass</option>
-                        <option value="Punch bowl">Punch bowl</option>
-                        <option value="Shot glass">Shot glass</option>
-                        <option value="Whiskey sour glass">Whiskey sour glass</option>
-                        <option value="White wine glass">White wine glass</option>
-                        <option value="Wine glass">Wine glass</option>
-                    </select>
-                    <select name="iba" data-field-name="iba" data-field-display-name="Intl. Bartenders Assoc."
-                        class="d-xxl-block d-xl-inline filter-field" id="filter-iba" placeholder="Intl. Bartenders Assoc.">
-                        <option value="">&lt;Intl. Bartenders Assoc.&gt;</option>
-                        <option value="Contemporary Classics">Contemporary Classics</option>
-                        <option value="New Era Drinks">New Era Drinks</option>
-                        <option value="Not Classified">Not Classified</option>
-                        <option value="Unforgettables">Unforgettables</option>
-                    </select>
+                <div class="col-xxl-2 col-xl-12" id="filter-container">
+                    <div class="row">
+                        <div class=" mb-3 col-xxl-12 col-xl-2">
+                            <h3> Filters</h3>
+                        </div>
+                        <div class="form-floating mb-3 col-xxl-12 col-xl-2">
+                            <input type="text" id="filter-name" name="name" data-field-name="name"
+                                data-field-display-name="Name" class="form-control filter-field" placeholder="Name">
+                            <label for="filter-name">Name</label>
+                        </div>
+                        <div class="form-floating mb-3 col-xxl-12 col-xl-2">
+                            <select name="category" data-field-name="category" data-field-display-name="Category"
+                                class="form-control filter-field" id="filter-category">
+                                <option value="" disabled selected></option>
+                                <option value="Beer">Beer</option>
+                                <option value="Cocktail">Cocktail</option>
+                                <option value="Cocoa">Cocoa</option>
+                                <option value="Coffee / Tea">Coffee / Tea</option>
+                                <option value="Homemade Liqueur">Homemade Liqueur</option>
+                                <option value="Milk / Float / Shake">Milk / Float / Shake</option>
+                                <option value="Ordinary Drink">Ordinary Drink</option>
+                                <option value="Other/Unknown">Other/Unknown</option>
+                                <option value="Punch / Party Drink">Punch / Party Drink</option>
+                                <option value="Shot">Shot</option>
+                                <option value="Soft Drink / Soda">Soft Drink / Soda</option>
+                            </select>
+                            <label for="filter-category">Category</label>
+                        </div>
+                        <div class="form-floating mb-3 col-xxl-12 col-xl-2">
+                            <select name="alcoholic" data-field-name="alcoholic" data-field-display-name="Alcoholic"
+                                class="form-control filter-field" id="filter-alcoholic">
+                                <option value="" disabled selected></option>
+                                <option value="Alcoholic">Alcoholic</option>
+                                <option value="Non alcoholic">Non alcoholic</option>
+                                <option value="Optional alcohol">Optional alcohol</option>
+                            </select>
+                            <label for="filter-alcoholic">Alcoholic</label>
+                        </div>
+                        <div class="form-floating mb-3 col-xxl-12 col-xl-2">
+                            <select name="glass" data-field-name="glass" data-field-display-name="Glass"
+                                class="form-control filter-field" id="filter-glass">
+                                <option value="" disabled selected></option>
+                                <option value="Beer glass">Beer glass</option>
+                                <option value="Beer mug">Beer mug</option>
+                                <option value="Beer pilsner">Beer pilsner</option>
+                                <option value="Brandy snifter">Brandy snifter</option>
+                                <option value="Champagne flute">Champagne flute</option>
+                                <option value="Cocktail glass">Cocktail glass</option>
+                                <option value="Coffee mug">Coffee mug</option>
+                                <option value="Collins glass">Collins glass</option>
+                                <option value="Copper mug">Copper mug</option>
+                                <option value="Cordial glass">Cordial glass</option>
+                                <option value="Highball glass">Highball glass</option>
+                                <option value="Hurricane glass">Hurricane glass</option>
+                                <option value="Irish coffee cup">Irish coffee cup</option>
+                                <option value="Jar">Jar</option>
+                                <option value="Margarita glass">Margarita glass</option>
+                                <option value="Margarita/Coupette glass">Margarita/Coupette glass</option>
+                                <option value="Martini glass">Martini glass</option>
+                                <option value="Mason jar">Mason jar</option>
+                                <option value="Old-Fashioned glass">Old-Fashioned glass</option>
+                                <option value="Old-fashioned glass">Old-fashioned glass</option>
+                                <option value="Parfait glass">Parfait glass</option>
+                                <option value="Pint glass">Pint glass</option>
+                                <option value="Pitcher">Pitcher</option>
+                                <option value="Pousse cafe glass">Pousse cafe glass</option>
+                                <option value="Punch bowl">Punch bowl</option>
+                                <option value="Shot glass">Shot glass</option>
+                                <option value="Whiskey sour glass">Whiskey sour glass</option>
+                                <option value="White wine glass">White wine glass</option>
+                                <option value="Wine glass">Wine glass</option>
+                            </select>
+                            <label for="filter-glass">Glass</label>
+                        </div>
+                        <div class="form-floating mb-3 col-xxl-12 col-xl-2">
+                            <select name="iba" data-field-name="iba" data-field-display-name="Intl. Bartenders Assoc."
+                                class="form-control filter-field" id="filter-iba">
+                                <option value="" disabled selected></option>
+                                <option value="Contemporary Classics">Contemporary Classics</option>
+                                <option value="New Era Drinks">New Era Drinks</option>
+                                <option value="Not Classified">Not Classified</option>
+                                <option value="Unforgettables">Unforgettables</option>
+                            </select>
+                            <label for="filter-iba">Intl. Bartenders Associations</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-xxl-8 col-xl-12" id="table-container"></div>
+                <div class="col-xxl-10 col-xl-12" id="table-container"></div>
             </div>
         </div>
     </main>
@@ -172,7 +191,7 @@
                                     <label for="form-field-category">Category:</label>
                                     <select name="category" data-field-name="category" class="form-control"
                                         id="form-field-category">
-                                        <option value="" disabled>Choose...</option>
+                                        <option value="" disabled>.</option>
                                         <option value="Beer">Beer</option>
                                         <option value="Cocktail">Cocktail</option>
                                         <option value="Cocoa">Cocoa</option>
@@ -190,24 +209,22 @@
                                     <label for="form-field-alcoholic">Alcoholic:</label>
                                     <select name="alcoholic" data-field-name="alcoholic" class="form-control"
                                         id="form-field-alcoholic">
-                                        <option value="" disabled>Choose...</option>
+                                        <option value="" disabled>.</option>
                                         <option value="Alcoholic">Alcoholic</option>
                                         <option value="Non alcoholic">Non alcoholic</option>
                                         <option value="Optional alcohol">Optional alcohol</option>
                                     </select>
                                 </div>
-
                                 <div class="form-group row">
                                     <label for="form-field-name">Price</label>
                                     <input type="number" id="form-field-price" name="price" data-field-price="price"
                                         class="form-control" placeholder="Price">
                                 </div>
-
                                 <div class="form-group row">
                                     <label for="form-field-glass">Glass:</label>
                                     <select name="glass" data-field-name="glass" data-field-display-name="Glass"
                                         class="form-control" id="form-field-glass">
-                                        <option value="" disabled>Choose...</option>
+                                        <option value="" disabled>.</option>
                                         <option value="Beer glass">Beer glass</option>
                                         <option value="Beer mug">Beer mug</option>
                                         <option value="Beer pilsner">Beer pilsner</option>
@@ -242,7 +259,7 @@
                                 <div class="form-group row">
                                     <label for="form-field-iba">International Bartenders Association:</label>
                                     <select name="iba" data-field-name="iba" class="form-control" id="form-field-iba">
-                                        <option value="" disabled>Choose...</option>
+                                        <option value="" disabled>.</option>
                                         <option value="Not Classified">Not Classified</option>
                                         <option value="Contemporary Classics">Contemporary Classics</option>
                                         <option value="New Era Drinks">New Era Drinks</option>
@@ -267,7 +284,7 @@
                                             <div class="row">
                                                 <div class="form-row row">
                                                     <div class="form-group col-1">
-                                                        <label for="form-field-ingredients-name-1">1.</label>
+                                                        <label for="form-field-ing-1-name">1.</label>
                                                     </div>
                                                     <div class="form-group col-7">
                                                         <input type="text" id="form-field-ing-1-name" name="ing-1-meas"
@@ -282,7 +299,7 @@
                                             <div class=" row">
                                                 <div class="form-row row">
                                                     <div class="form-group col-1">
-                                                        <label for="form-field-ingredients-name-2">2.</label>
+                                                        <label for="form-field-ing-2-name">2.</label>
                                                     </div>
                                                     <div class="form-group col-7">
                                                         <input type="text" id="form-field-ing-2-name" name="ing-2-meas"
@@ -297,7 +314,7 @@
                                             <div class="row">
                                                 <div class="form-row row">
                                                     <div class="form-group col-1">
-                                                        <label for="form-field-ingredients-name-3">3.</label>
+                                                        <label for="form-field-ing-3-name">3.</label>
                                                     </div>
                                                     <div class="form-group col-7">
                                                         <input type="text" id="form-field-ing-3-name" name="ing-3-meas"
@@ -312,7 +329,7 @@
                                             <div class="row">
                                                 <div class="form-row row">
                                                     <div class="form-group col-1">
-                                                        <label for="form-field-ingredients-name-4">4.</label>
+                                                        <label for="form-field-ing-4-name">4.</label>
                                                     </div>
                                                     <div class="form-group col-7">
                                                         <input type="text" id="form-field-ing-4-name" name="ing-4-meas"
@@ -327,7 +344,7 @@
                                             <div class="row">
                                                 <div class="form-row row">
                                                     <div class="form-group col-1">
-                                                        <label for="form-field-ingredients-name-5">5.</label>
+                                                        <label for="form-field-ing-5-name">5.</label>
                                                     </div>
                                                     <div class="form-group col-7">
                                                         <input type="text" id="form-field-ing-5-name" name="ing-5-meas"
@@ -342,7 +359,7 @@
                                             <div class="row">
                                                 <div class="form-row row">
                                                     <div class="form-group col-1">
-                                                        <label for="form-field-ingredients-name-6">6.</label>
+                                                        <label for="form-field-ing-6-name">6.</label>
                                                     </div>
                                                     <div class="form-group col-7">
                                                         <input type="text" id="form-field-ing-6-name" name="ing-6-meas"
@@ -357,7 +374,7 @@
                                             <div class="row">
                                                 <div class="form-row row">
                                                     <div class="form-group col-1">
-                                                        <label for="form-field-ingredients-name-7">7.</label>
+                                                        <label for="form-field-ing-7-name">7.</label>
                                                     </div>
                                                     <div class="form-group col-7">
                                                         <input type="text" id="form-field-ing-7-name" name="ing-7-meas"
@@ -372,7 +389,7 @@
                                             <div class="row">
                                                 <div class="form-row row">
                                                     <div class="form-group col-1">
-                                                        <label for="form-field-ingredients-name-8">8.</label>
+                                                        <label for="form-field-ing-8-name">8.</label>
                                                     </div>
                                                     <div class="form-group col-7">
                                                         <input type="text" id="form-field-ing-8-name" name="ing-8-meas"
@@ -387,7 +404,7 @@
                                             <div class="row">
                                                 <div class="form-row row">
                                                     <div class="form-group col-1">
-                                                        <label for="form-field-ingredients-name-9">9.</label>
+                                                        <label for="form-field-ing-9-name">9.</label>
                                                     </div>
                                                     <div class="form-group col-7">
                                                         <input type="text" id="form-field-ing-9-name" name="ing-9-meas"
@@ -402,7 +419,7 @@
                                             <div class="row">
                                                 <div class="form-row row">
                                                     <div class="form-group col-1">
-                                                        <label for="form-field-ingredients-name-10">10.</label>
+                                                        <label for="form-field-ing-10-name">10.</label>
                                                     </div>
                                                     <div class="form-group col-7">
                                                         <input type="text" id="form-field-ing-10-name"
@@ -419,7 +436,7 @@
                                             <div class="row">
                                                 <div class="form-row row">
                                                     <div class="form-group col-1">
-                                                        <label for="form-field-ingredients-name-11">11.</label>
+                                                        <label for="form-field-ing-11-name">11.</label>
                                                     </div>
                                                     <div class="form-group col-7">
                                                         <input type="text" id="form-field-ing-11-name"
@@ -436,7 +453,7 @@
                                             <div class="row">
                                                 <div class="form-row row">
                                                     <div class="form-group col-1">
-                                                        <label for="form-field-ingredients-name-12">12.</label>
+                                                        <label for="form-field-ing-12-name">12.</label>
                                                     </div>
                                                     <div class="form-group col-7">
                                                         <input type="text" id="form-field-ing-12-name"

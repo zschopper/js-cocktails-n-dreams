@@ -88,7 +88,7 @@ main {
 }
 
 #gallery-container .card-body {
-  min-height: 300px;
+  height: 300px;
 }
 
 #gallery-container.active .card-wrapper {
@@ -111,8 +111,72 @@ main {
   box-shadow: 5px 5px 5px #00000050;
 }
 
+.card-header {
+  /* color: #b4b4b4; */
+  font-variant: small-caps;
+}
+
+.card {
+  color: #b4b4b4;
+  background-color: rgba(var(--bs-dark-rgb), 0.75) !important;
+}
+
+.card-footer {
+  background-color: rgba(var(--bs-dark-rgb), 1) !important;
+  /* border-radius: 5px; */
+  border-radius: 0 0 20px 20px !important;
+  /* border-bottom-left-radius: 5px !important;
+  border-bottom-right-radius: 5px !important; */
+}
+
+.card-body img {
+  border: 2px solid silver;
+}
+
 #gallery-container .card.is-flipped {
   transform: rotateY(180deg);
+}
+
+.action-link {
+  display: inline-block;
+  /* font-family: "La Belle Aurore", cursive; */
+  font-family: "Caveat", cursive;
+  font-size: 200%;
+  font-style: italic;
+  color: white;
+  transform: rotate(-13deg);
+  text-decoration: none;
+  padding: 1.5rem 1rem;
+  text-shadow: 0 0 2.5px #ffa5a5, 0 0 7.5px #ffa5a5, 0 0 10px #ffa5a5,
+    0 0 20px #ffa5a5, 0 0 30px #ff0000, 0 0 5px #ff8d8d, 0 0 44px #ff0000;
+  color: #ffcaca;
+}
+
+.action-link:hover {
+  color: white;
+  animation: blink 12s infinite;
+}
+
+@keyframes blink {
+  20%,
+  24%,
+  55% {
+    color: #111;
+    text-shadow: none;
+  }
+
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+      text-shadow: 0 0 2.5px #ffa5a5, 0 0 7.5px #ffa5a5, 0 0 10px #ffa5a5,
+      0 0 20px #ffa5a5, 0 0 30px #ff0000, 0 0 5px #ff8d8d, 0 0 44px #ff0000;
+      color: #ffcaca;
+    }
 }
 
 #gallery-container .card-face {
@@ -177,15 +241,11 @@ footer {
   text-align: center;
   border-top: 2px solid whitesmoke;
   --text-shadow-color: white;
-  text-shadow:
-    -1px -1px 0px var(--text-shadow-color),
-     0px -1px 0px var(--text-shadow-color),
-     1px -1px 0px var(--text-shadow-color),
-    -1px  0px 0px var(--text-shadow-color),
-     1px  0px 0px var(--text-shadow-color),
-    -1px  1px 0px var(--text-shadow-color),
-     0px  1px 0px var(--text-shadow-color),
-     1px  1px 0px var(--text-shadow-color);
+  text-shadow: -1px -1px 0px var(--text-shadow-color),
+    0px -1px 0px var(--text-shadow-color), 1px -1px 0px var(--text-shadow-color),
+    -1px 0px 0px var(--text-shadow-color), 1px 0px 0px var(--text-shadow-color),
+    -1px 1px 0px var(--text-shadow-color), 0px 1px 0px var(--text-shadow-color),
+    1px 1px 0px var(--text-shadow-color);
 }
 
 footer a {

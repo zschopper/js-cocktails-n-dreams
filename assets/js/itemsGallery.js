@@ -60,7 +60,7 @@ class ItemsGallery {
                     `      <div class="card-body"><p class="card-text"> <img src="${item.image}" alt="${item.name}" loading="lazy"/> </p></div>` +
                     '      <div class="card-footer">' +
                     '        <div class="row">' +
-                    '          <div class="col-6 text-end"><a href="#" class="btn btn-sm btn-success flip"> Flip it!</a> or <a href="#" class="btn btn-sm btn-success order">Order it!</a></div>' +
+                    '          <div class="col-6 text-end"><a href="#" class="action-link flip"> Flip it!</a> or <a href="#" class="action-link order">Order it!</a></div>' +
                     '        </div>' +
                     '      </div>' +
                     '    </div>' +
@@ -69,7 +69,7 @@ class ItemsGallery {
                     `      <div class="card-body"><p class="card-text"> Ingredients </p>${ingredients}</div>` +
                     '      <div class="card-footer">' +
                     '        <div class="row">' +
-                    '          <div class="col-6 text-end"><a href="#" class="btn btn-sm btn-success flip">Flip back and order it!</a></div>' +
+                    '          <div class="col-6 text-end"><a href="#" class="action-link flip">Flip back &amp; order it!</a></div>' +
                     '        </div>' +
                     '      </div>' +
                     '    </div>' +

@@ -89,6 +89,16 @@
 
   }
 
+  table td:first-child,
+  table th:first-child {
+    width: 5%;
+  }
+
+  table td:last-child,
+  table th:last-child {
+    width: 65px;
+  }
+
   .scrollable {
     max-height: 300px;
     /* overflow: scroll; */
